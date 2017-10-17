@@ -5,7 +5,7 @@
         <title>IGREJA BATISTA DO AMOR DE DEUS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8">
-        <link href="https://fonts.googleapis.com/css?family=Courgette|Indie+Flower|Josefin+Sans|Lobster+Two|Medula+One|Nova+Square|Prata|Share+Tech" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Courgette|Indie+Flower|Josefin+Sans|Lobster+Two|Medula+One|Nova+Square|Prata|Share+Tech" rel="stylesheet" > 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         
@@ -13,16 +13,15 @@
             $(document).ready(function(){
                 $('#conteudo')
                     .css({
-                        widht: '400px',
-                        height: '800px',
-                        //border: 'solid blue'
+                        //widht: '400px',
+                        //height: '800px',
+                        //border: 'solid red'
                     })
                     .prepend('<img />');
                 $('#conteudo > img').attr({
                     src: 'web/img/superior.jpg',
                     width: '100%',
-                    height: '500vh',
-                    //height: '500px'
+                    height: '500vh'
                 })
                 $('#conteudo > img').css({
                     position: 'absolute',
@@ -34,14 +33,7 @@
                     float: 'left',
                     fontSize: '22px',
                     margin: '7px 30px',
-                    //fontFamily: "'Indie Flower', cursive",
-                    //fontFamily: "'Josefin Sans', sans-serif",
-                    //fontFamily: "'Lobster Two', cursive",
-                    //fontFamily: "'Courgette', cursive",
-                    //fontFamily: "'Prata', serif",
-                    fontFamily: "'Share Tech', sans-serif",
-                    //fontFamily: "'Medula Crie",
-                    //fontFamily: "'Nova Square"
+                    fontFamily: "'Share Tech', sans-serif"
                 })
                 $('.tel').css({
                     float: 'right',
@@ -82,29 +74,31 @@
                     fontSize: '18px',
                 })
                 $('#inferior').css({
-                    width: '800px',
+                    width: '85%',
                     height: '300px',
+                    textAlign: 'center',
                     margin: '100px auto',
                     //border: 'solid gray'
                 })
-                $("#inferior > .mapa").css({
-                    float: 'left'
+                $("#inferior > .mapa, .info").css({
+                    float: 'left',
+                    //marginLeft: '100px'
+                    //display: 'block',
+                    width: '50%',
+                    //border: 'solid red'
                 })
                 $('#inferior > .end').css('marginLeft','80px');
                 $('#inferior > .end, #inferior > .horario').css({
-                    float: 'left',
-                    //fontWeight: '900',
+                    //float: 'left',
                     fontSize: '13px',
                     paddingLeft: '30px',
-                    //border: 'solid red',
-                    //fontFamily: "'Indie Flower', cursive",
-                    //fontFamily: "'Josefin Sans', sans-serif",
-                    //fontFamily: "'Lobster Two', cursive",
-                    //fontFamily: "'Courgette', cursive",
-                    //fontFamily: "'Prata', serif",
                     fontFamily: "'Share Tech', sans-serif",
-                    //fontFamily: "'Medula Crie",
-                    //fontFamily: "'Nova Square"
+                    //border: 'solid green'
+                })
+                $('.info span').css({
+                    float: 'left',
+                    textAlign: 'left',
+                    marginLeft: '50px'
                 })
                 $('a').css({
                     color: '#e36a6a'
@@ -122,7 +116,8 @@
                     var url='https://www.google.com/maps/dir//%27-22.8520563,-43.2456468%27';
                     window.open(url,'__blank');
                 })
-                $('.hor2').css('marginLeft','35px');
+                $('.hor2').css('marginLeft','45px');
+                $('.linha1').css('marginTop','9px');
                 $('#cabecalho > img').css({
                     position: 'absolute',
                     left: '10px'
@@ -146,7 +141,78 @@
                     border: 'none',
                     color: 'white'
                 })
-                //alert('oi');
+                $(window).resize(function(){
+                    if($('body').width()>685){
+                        $('.tel,.rota').show();                   
+                    }else{
+                        $('.tel,.rota').hide();                   
+                    }
+                    alert($('body').width());
+                    if($('#inferior').width() < 871 && $('#inferior').width() > 678){
+                        $('.horario').css({
+                            marginTop: '30px'
+                        })
+                        $('.hor2').css('marginLeft','43px');
+                    }else if($('body').width() < 798){
+                        //alert('aqui');
+                        $('#inferior').css({
+                            //border: 'solid green',
+                            width: '380px',
+                            //float: 'left'
+                        });
+                        $('.info').css({
+                            width:'380px',
+                            //textAlign: 'center',
+                            //clean: 'left',
+                            //float: 'left',
+                            //border: 'solid gray'
+                        })
+                    }else if($('body').width() > 798){
+                        $('#inferior').css({
+                            width: '85%',
+                            height: '300px',
+                            textAlign: 'center',
+                            margin: '100px auto',
+                            //border: 'solid gray'
+                        })
+                        $("#inferior > .mapa, .info").css({
+                            float: 'left',
+                            //marginLeft: '100px'
+                            //display: 'block',
+                            width: '50%',
+                            //border: 'solid red'
+                        })
+                        $('#inferior > .end').css('marginLeft','80px');
+                        $('#inferior > .end, #inferior > .horario').css({
+                            //float: 'left',
+                            fontSize: '13px',
+                            paddingLeft: '30px',
+                            fontFamily: "'Share Tech', sans-serif",
+                            //border: 'solid green'
+                        })
+                        $('.info span').css({
+                            float: 'left',
+                            textAlign: 'left',
+                            marginLeft: '50px'
+                        })                        
+                    }else{  
+                        $('.horario').css({
+                            marginTop: '0'
+                        })
+                        $('.hor2').css('marginLeft','45px');
+                    }
+                    //alert($(document).width($('#conteudo > img').width()));
+                })
+                /*if($('#conteudo > img').width() < 1040){
+                    //var widht=$('#conteudo > img').width();
+                    alert($('#conteudo > img').width());
+                    $('body')
+                    .css({
+                        widht: $('#conteudo > img').width(),
+                        height: $('#conteudo > img').height(),
+                        border: 'solid blue'
+                    });
+                }*/
             })
         </script>
         
@@ -158,20 +224,22 @@
                     <span class="rota"><img src="web/img/rota.png" /> VER ROTA</span>
                 <span class="tel"><img src="web/img/tel.png" /> (21)2671-3390</span>
                 </div>
-                <hr size="1" color="#ccc">
+                <hr class="linha1" size="1" color="#ccc">
                 <h1>Igreja Batista do Amor de Deus</h1>
                 <p class="frase">Somos uma família unida para expressar o amor de Deus</p>
                 <p class="endereco">Rua da Paz, 11 - Bonsucesso, Rio de Janeiro - RJ</p>
                 <button>(21)2671-3390</button>
             </div>
-            <hr size="1" color="#ccc" width="1000px">
+            <hr size="1" color="#ccc" width="90%">
             <div id="inferior">
-                <span class="mapa"><img src="web/img/mapa.jpg" height="300px"/></span>
+                <div class="mapa"><img src="web/img/mapa.jpg" height="300px"/></div>
+                <div class="info">
                 <span class="end"><b>ENDEREÇO</b><br><br>Rua da Paz,11<br>Bonsucesso - RJ<br>Cep. 21044-430<br>Brasil<br><br><a href='https://www.google.com/maps/dir//%27-22.8520563,-43.2456468%27' target="__blank">Ver rota</a><br><br><br><b>CONTATO</b><br><br><a href="tel:+55-21-2671-3390" target="__blank">(21)2671-3390</a></span>
                                                                     <span class='horario'><b>HORÁRIO DE FUNCIONAMENTO</b><br><br><b>Qua </b>&nbsp&nbsp 19:30 - 21:30<br><b>Dom</b>&nbsp&nbsp 10:00 - 12:00<br><span class='hor2'>18:00 - 20:00</span></span>
+                                                                                  </div>
             </div>
             <div>
-                <hr size="1" color="#ccc" width="1000px">
+                <hr size="1" color="#ccc" width="90%">
             </div>
         </div>
     </body>
