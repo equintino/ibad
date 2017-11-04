@@ -147,7 +147,7 @@
                     }else{
                         $('.tel,.rota').hide();                   
                     }
-                    alert($('body').width());
+                    //alert($('body').width());
                     if($('#inferior').width() < 871 && $('#inferior').width() > 678){
                         $('.horario').css({
                             marginTop: '30px'
@@ -203,6 +203,37 @@
                     }
                     //alert($(document).width($('#conteudo > img').width()));
                 })
+                    //alert($('#conteudo').width());
+                if($('body').width()<380){
+                    /*$('body').css('border','solid gray');
+                    $('#conteudo').css('border','solid red');
+                    $('#superior').css('border','solid green');
+                    $('#cabecalho').css('border','solid yellow');
+                    $('#inferior').css('border','solid brown');
+                    $('.info').css('border','solid pink');
+                    $('.info span').css('border','solid purple');*/
+                    
+                    $('.ibad').css('fontSize','15px');
+                    $('.rota, .tel, .endereco, .linha2').hide();
+                    $('h1').css('fontSize','30px');
+                    $('.frase').css({
+                        'fontSize':'15px',
+                        width:'300px',
+                        margin: 'auto'
+                    });
+                    $('#superior').css('height','500px');
+                    $('#inferior').css('marginTop','30px');
+                    $('.mapa img').css("height",'235px');
+                    $('.info').css({
+                        fontSize: '15px',
+                        width: '290px'
+                    })
+                    $('.info span').css({
+                        textAlign:'center',
+                        width: '290px',
+                        margin: 'auto'
+                    })
+                }
                 /*if($('#conteudo > img').width() < 1040){
                     //var widht=$('#conteudo > img').width();
                     alert($('#conteudo > img').width());
@@ -238,7 +269,7 @@
                                                                     <span class='horario'><b>HORÁRIO DE FUNCIONAMENTO</b><br><br><b>Qua </b>&nbsp&nbsp 19:30 - 21:30<br><b>Dom</b>&nbsp&nbsp 10:00 - 12:00<br><span class='hor2'>18:00 - 20:00</span></span>
                                                                                   </div>
             </div>
-            <div>
+            <div class="linha2">
                 <hr size="1" color="#ccc" width="90%">
             </div>
         </div>
