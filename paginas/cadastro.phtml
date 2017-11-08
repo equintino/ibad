@@ -1,0 +1,173 @@
+<style>
+    #rodape{
+        display: none;
+    } 
+    .fotoFicha{
+        background: #ccc;
+    }
+</style>    
+<script>
+   $(document).ready(function(){
+      var original=$('.foto :hidden').val();
+      $('#image-holder img').attr('src', original);
+      $('#fileUpload').change(function(){
+         $('.foto :hidden').attr('value','');
+      })      
+   })
+</script>
+
+<?php 
+    $dao=new Dao();
+    $search=new ModelSearchCriteria();
+    $search->settabela('lt_membros');
+    $search->setorder('nome');
+    $lista=$dao->encontre($search);
+    $variaveis=array('NOME COMPLETO '=>'nome','DATA DE NASCIMENTO '=>'dt_nascimento','NATURALIDADE'=>'naturalde','IDENTIDADE'=>'rg','CPF'=>'cpf','TÍTULO ELEITORAL'=>'tit','SEXO'=>'sexo','ESCOLARIDADE'=>'escolaridade','PROFISSÃO'=>'prof','NOME DO PAI'=>'pai','NOME DA MÃE'=>'mae','ESTADO CIVIL'=>'estcivil','DATA DO CASAMENTO'=>'dt_casamento','NOME DO CONJUGÊ'=>'conjuge','ENDEREÇO DE E-MAIL '=>'email','TELEFONE '=>'tel','CELULAR '=>'cel','AV/RUA/TRAV'=>'tipo','ENDEREÇO DE RESIDÊNCIA '=> 'endereco','NÚMERO'=>'numero','COMPLEMENTO'=>'complemento','BAIRRO'=>'bairro','CIDADE'=>'cidade','ESTADO'=>'estado','CEP'=>'cep','DATA DO BATISMO'=>'dt_batismo','IGREJA DO BATISMO'=>'igbatismo','IGREJA DE ORIGEM'=>'igorigem','MEMBRO DESDE'=>'dt_ingresso');
+    $act=$_GET['act'];
+    $x=$_GET['pag'];
+    $y=$x+5;
+        if($x==0){ 
+           $class='class="disabled"';
+        }else{
+           $class='title=RECUAR';
+        }
+?>
+<div  class="conteudo" >
+    <div class="cadastro">
+        <?php if($act=='lista'):?>
+               <?php                   
+                  $titulos=array('Nome','E-mail','Tel.','Nascimento','Endereço','Batismo','Membro desde','Estado Civil','Conjuge','Igreja do Batismo');
+                  echo '<div class=paginacao>';
+                     $pag = ($x/4)+1;
+                    echo 'Páginas ';
+                    echo $pag .' de ';
+                    echo ceil(count($lista)/4);
+                  echo '</div>';
+                  if(($x/4)+1 == ceil(count($lista)/4)){
+                     $class2='class=disabled';
+                  }else{
+                     $class2='title="AVANÇAR"';
+                  }
+        echo '<fieldset class=lista><legend><a href='.Utils::createLink('cadastro',array('act'=>'lista','pag'=>$x-4)).' '.$class.' ><< </a> FICHA DE MEMBROS <a href='.Utils::createLink('cadastro',array('act'=>'lista','pag'=>$x+4,'contador'=>count($lista))).' '.$class2.'> >> </a></legend>';
+           echo '<table cellspacing=0 border=1>';
+            echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
+                  $cont=0;
+                  foreach($lista as $keys => $item){
+                     $cont++;
+                    if($cont > $x && $cont < $y){
+                       if($item->getnome()){
+                        echo '<tr><td class="nome">'.$titulos[0].' </td><td class=dados colspan=3>&nbsp'.$item->getnome().'</td><td class=nome2>'.$titulos[3].' </td><td class=dados>&nbsp'.ModelValidador::data($item->getdt_nascimento()).'</td>';
+                    if(substr($item->getfoto(),0,7)=='imagens'){
+                        echo '<td class=fotoFicha width="250" height="50" rowspan="5" align="center">';
+                      echo '<span><img title="'.$item->getnome().'" src="'.$item->getfoto().'" /></span><br><a href="../web/index.php?pagina=cadastro&act=cad&pag=0&id='.$item->getid().'" >&nbsp&nbsp&nbsp&nbspEditar Dados</a>';
+                    echo '</td>';
+                    }
+                    echo '</tr>';
+                       }
+                       if($item->gettel()||$item->getcel()||$item->getemail()){
+                          if($item->getemail()){
+                             $colspan=2;
+                          }else{
+                             $colspan=5;
+                          }
+                        echo '<tr><td class=nome >'.$titulos[2].' </td><td class=dados colspan='.$colspan.'>&nbsp'.$item->gettel();
+                        if($item->gettel() && $item->getcel()){echo ' / ';};
+                        echo $item->getcel().'</td>';
+                       if($item->getemail()){
+                        echo '<td class=nome>'.$titulos[1].' </td><td class=dados_ colspan=2>&nbsp'.$item->getemail().'</td></tr>';
+                       }
+                       }
+                       if($item->getestcivil()){
+                          if(strstr($item->getestcivil(),'d',true)=="Casa" || strstr($item->getestcivil(),'d',true)=="CASA"){
+                             $colspan=1;
+                          }else{
+                             $colspan=5;
+                          }
+                          echo '<tr><td class=nome>'.$titulos[7].' </td><td class="dados" colspan='.$colspan.'>&nbsp'.$item->getestcivil().'</td>';
+                          if(strstr($item->getestcivil(),'d',true)=='Casa' || strstr($item->getestcivil(),'d',true)=='CASA'){
+                          echo '<td class=nome2>'.$titulos[8].' </td><td class=dados colspan=3>&nbsp'.$item->getconjuge().'</td></tr>';
+                          }
+                       }
+                       if($item->gettipo()){
+                        echo '<tr><td class=nome>'.$titulos[4].' </td><td class=dados colspan=5>&nbsp'.$item->gettipo().' '.$item->getendereco().', '.$item->getnumero();
+                       }
+                       if($item->getcomplemento()){
+                         echo ' - '.$item->getcomplemento();
+                       }
+                       if($item->getbairro()){
+                        echo ' - '.$item->getbairro();
+                       }
+                       if($item->getcidade()){
+                          echo '<br>&nbsp'.$item->getcidade();
+                       }
+                       if($item->getcep()){
+                          echo ' - CEP'.$item->getcep();
+                       }
+                       if($item->getdt_batismo() && $item->getdt_batismo()!='0000-00-00'){
+                        echo '<tr><td class="nome col1">'.$titulos[5].' </td><td class="dados col2">&nbsp'.ModelValidador::data($item->getdt_batismo()).'</td><td class="nome3 col3">'.$titulos[9].'</td><td class="dados col4">&nbsp'.$item->getigbatismo().'</td><td class="nome2 col5">'.$titulos[6].' </td><td class="dados col6">'.  ModelValidador::data($item->getdt_ingresso()).'</td></tr>';
+                       }
+                     echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
+                    }elseif($cont > $y){
+                       break;
+                    }
+                  }
+                       echo '</table>';
+      echo '</fieldset>';
+      
+         elseif($act=='cad'): 
+            @$search->setid($_GET['id']);
+            $dados=$dao->encontrePorId($search);
+        ?>
+        <fieldset class=cadMembros>
+            <legend>CADASTRO DE MEMBROS</legend>
+             <form class="font_1" enctype="multipart/form-data"  id="cadastro" action="../paginas/add.php?act=cad" method="POST" >
+         <table>
+             <?php 
+             foreach($variaveis as $keys => $item){
+                $classe='get'.$item;
+                echo '<input type=hidden name=id value="'.$dados->getid().'">';
+                 if($item=='email'){
+                    echo "<tr><td align=\"right\"> $keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value=".$dados->getemail()." ></td></tr>";
+                 }elseif(substr($item,0,2)=='dt'){ 
+                    if(ModelValidador::data($dados->$classe())=='//'){
+                       $data_=null;
+                    }else{
+                       $data_= ModelValidador::data($dados->$classe());
+                    }
+                    echo "<tr><td align=\"right\">$keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value='".$data_."' ></td></tr>";
+                 }elseif($item=='sexo'){
+                    if($dados->getsexo()=='Masculino'){
+                       $masculino='checked';
+                       $femenino=null;
+                    }elseif($dados->getsexo()=='Femenino'){
+                       $femenino='checked';
+                       $masculino=null;
+                    }else{
+                       $masculino=$femenino=null;
+                    }
+                    echo "<tr><td align=right>$keys: </td><td id=sexo align=center><input type=radio name=sexo value=Masculino $masculino> Masculino ";
+                    echo "<input type=radio name=sexo value=Femenino $femenino> Femenino </td></tr>";
+                 }else{
+                    echo "<tr><td align=\"right\">$keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value='".$dados->$classe()."' ></td></tr>";
+                 }
+             }
+             ?>
+            <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+             <div class="foto">
+                  <div id="wrapper" style="margin-top: 20px;">
+                     <input id="fileUpload" name="foto" multiple="multiple" type="file" /> 
+                     <div id="image-holder"><img class="thumb-image" src="" alt="Inserir Foto" /></div>
+                     <input type="hidden" name="foto" value="<?= $dados->getfoto() ?>"/>
+                  </div>
+             </div>            
+            <tr><td></td><td align="right">
+                    <button>GRAVA</button>
+            <!--<input type="submit" value="GRAVA">-->
+               &nbsp<input type="reset" value="LIMPA"></td></tr>
+         </table>
+             </form>
+            <span class="info">* campos obrigatórios</span>
+        </fieldset>
+        <?php endif; ?>
+    </div>
+</div>

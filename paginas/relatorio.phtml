@@ -1,0 +1,54 @@
+<html>
+<head>
+<style type="text/css">
+    .centro{
+        width: 300px;
+        margin: 40px auto;
+        font-size: 20px;
+        text-align: center;
+        //border: solid gray;
+    }
+    .mes{
+        color: green;
+        font-style: italic;
+    }
+    .tituloRel{
+        font-size: 25px;
+        color: black;
+    }
+</style>
+<script>
+$(document).ready(function(){
+   $('.mes').mouseover(function(){
+      $(this).css('cursor','pointer');
+   });
+})
+</script>
+</head>
+<body>
+<div class="conteudo"> 
+    <div class="centro">
+    <?php
+      foreach($saldos as $saldo){
+         $ano=$saldo->getano();
+         $tituloAno='ANO DE '.$ano;
+         $mesNumero=ModelValidador::numeroMes(ModelValidador::tirarAcento($saldo->getmes()));
+         if($ano==@$anoOld){
+            echo '<a href=index.php?pagina=relMensal&mes='.$mesNumero.'/'.$ano.'&act=rel ><sapn class=mes>'.substr($saldo->getmes(),0,3).'</span></a>';echo ' ';
+         }else{
+            if(!isset($anoOld)){
+               echo '<br>';
+            }else{
+               echo '<hr>';
+            }
+            echo '<span class=tituloRel>'.$tituloAno.'</span><br>';
+            echo '<a href=index.php?pagina=relMensal&mes='.$mesNumero.'/'.$ano.'&act=rel ><sapn class=mes>'.substr($saldo->getmes(),0,3).'</span></a>';echo ' ';
+            $anoOld=$ano;
+         }
+      } 
+         echo '<hr>';     
+    ?>
+    </div>
+</div>
+</body>
+</html>

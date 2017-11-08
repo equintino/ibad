@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Cadastro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/login-style.css" />
+    </head>
+    <body class="cadlogin">
+        <form action="cadlogin.php" method="POST" >
+            <div class="quadro">
+                <table>
+                        <tr>
+                            <td align="right"><label>Nome: </label></td><td><input name="nome" type="text" size="20" /></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><label>E-mail: </label></td><td><input name="email" type="email" size="20" /></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><label>Senha: </label></td><td><input name="senha" type="password" size="20" /></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><lable>Confirma: </lable></td><td><input name="senha2" type="password" size="20" /></td>
+                        </tr>
+                </table>
+                <div>
+                    <input type="submit" value="Confirmar" />
+                    <input type="button" onclick="history.go(-1)" value="Voltar" />
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

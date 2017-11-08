@@ -3,11 +3,11 @@
     </head>
     <body bgcolor=#4cb1f1>
 <?php
-    $userdao='dao/UserDao.php';
-    $userserachcriteria='dao/UserSearchCriteria.php';
-    $config='config/Config.php';
-    $user='model/User.php';
-    $mapping='mapping/UserMapper.php';
+    $userdao='../dao/UserDao.php';
+    $userserachcriteria='../dao/UserSearchCriteria.php';
+    $config='../config/Config.php';
+    $user='../model/User.php';
+    $mapping='../mapping/UserMapper.php';
     $diretorios=array($userdao,$userserachcriteria,$config,$user,$mapping);
     foreach($diretorios as $diretorio){
         if(!file_exists($diretorio)){
@@ -61,7 +61,7 @@ class valida_cookies{
 	echo "<td width=100% colspan=3 valign=center align=center>";
 	echo "<table border=1 bgcolor=#FFFFFF CELLSPACING=3 CELLPADDING=13><tr><td>";
 	echo "<center><br><b><font face=tahoma size=2 color=black>Efetuar o login para obter acesso.<p>";
-	echo "<center><input type=button autofocus value=\"Entrar\" onclick=\"location.href='../index.html' \">";
+	echo "<center><input type=button autofocus value=\"Entrar\" onclick=\"location.href='../login/index.html' \">";
 	echo "</td></tr></table>";
 	echo "</table>";
 	echo "</td></tr></table>";
@@ -123,11 +123,11 @@ class valida_cookies{
             if(!$ok && $ok!='semlogin'){
                 echo "<center><input autofocus type=button value=\"Voltar\" onclick=history.back()>";
             }elseif($ok=='cad'){
-                echo "<center><input type=button value=\"Cadastrar\" onclick=\"location.href='web/cadlogin.html'\">";
+                echo "<center><input type=button value=\"Cadastrar\" onclick=\"location.href='../web/cadlogin.html'\">";
                 echo '<br>';
                 echo "<center><input type=button value='  Cancelar  ' onclick=history.back()>";
             }else{
-                echo "<center><input autofocus type=button value=\"Entrar\" onclick=\"location.href='web/index.php?index=sim'\">";
+                echo "<center><input autofocus type=button value=\"Entrar\" onclick=\"location.href='../web/index.php?index=sim'\">";
             }
         echo "</td></tr></table>";
         echo "</td></tr>";
