@@ -1,0 +1,106 @@
+<script>
+    $(document).ready(function(){
+        var font = '25px';
+        var familia = 'Pacifico';
+        var familia2 = 'Courgette';
+        var familia3 = 'Great Vibes';
+        var familia4 = 'Tangerine';
+        var familia5 = 'Alex Brush';
+        var familia6 = 'Pinyon Script';
+        $('.msg').css({
+            position: 'absolute',
+            top: '100px'
+        })
+        $('.certificado').append('<img src="../web/img/certificado Frente.png" />')
+        $('.certificado img').css({
+            height: '500px',
+            margin: '-68px 18%'
+        })   
+        $('.membro').css({
+            position: 'relative',
+            top: '210px',
+            left: '360px',
+            fontSize: '30px',
+            width: '480px',
+            textAlign: 'center',
+            fontFamily: familia5,
+            fontWeight: '900'
+        }) 
+        $('.pai').css({
+            position: 'relative',
+            top: '255px',
+            left: '220px',
+            fontSize: font,
+            width: '300px',
+            textAlign: 'center',
+            fontFamily: familia3,
+            fontWeight: '700'
+        }) 
+        $('.mae').css({
+            position: 'relative',
+            top: '223px',
+            left: '180px',
+            fontSize: font,
+            textAlign: 'center',
+            fontFamily: familia3,
+            fontWeight: '700'
+        })
+        $('.dt_batismo').css({
+            position: 'relative',
+            top: '338px',
+            left: '285px',
+            fontSize: font,
+        })
+        $('.certificado img').mouseover(function(){
+            $('.msg').text('Clique para ver o verso.').css('color','red');
+            $(this).mouseout(function(){
+                $('.msg').text('');
+            })
+            $(this).css({
+                cursor: 'pointer'                
+            })
+            $(this).click(function(){
+                $(location).attr('href','index.php?pagina=documentos&id='+id+'&act=verso');
+            })
+        })
+        $('.certificadoVerso').append('<img width=700px src="../web/img/'+batizado+'Beca.jpg" />')
+        $('.certificadoVerso').append('<img src="../web/img/certificado (ATRAS)branco.png" />')
+        $('.certificadoVerso img').wrap('<div class=beca></div>')
+        $('.beca').css({
+            position: 'absolute'
+        })
+        $('.certificadoVerso img, .certificadoVerso .beca').css({
+            height: '500px',
+            margin: '30px 100px'
+        }) 
+        $('.certificadoVerso img').mouseover(function(){
+            $('.msg').text('Clique para virar.').css('color','red');
+            $(this).mouseout(function(){
+                $('.msg').text('');
+            })
+            $(this).css({
+                cursor: 'pointer'                
+            })
+            $(this).click(function(){
+                $(location).attr('href','index.php?pagina=documentos&id='+id+'&act=cert');
+            })
+        })
+    })
+</script>
+<div class="conteudo">
+<?php if($act=='cert'): ?>    
+    <div class="certificado">
+        <div class="membro"><?= $nome ?></div>
+        <div class="pai"><?= $pai ?></div>
+        <div class="mae"><?= $mae ?></div>
+        <div class="dt_batismo"><?= $dd ?>&nbsp&nbsp&nbsp&nbsp<?= $mm ?>&nbsp&nbsp&nbsp&nbsp<?= $aa ?></div>
+    </div>
+    <div class="msg"></div>
+<?php elseif($act=='verso'): ?>
+    <div class="certificadoVerso">
+        <div></div>
+    </div>
+    <div class="msg"></div>
+<?php endif; ?>
+</div>
+

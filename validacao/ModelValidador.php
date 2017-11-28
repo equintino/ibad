@@ -152,5 +152,34 @@ final class ModelValidador {
         $dado_=preg_replace( '#[^0-9]#', '.', $dado );
         return $dado_;
     }
+    public static function iniciaisMaiusculas($string){
+        $sobrenome=explode(' ',mb_strtolower($string,'utf-8'));
+        $nomeCompleto=null;
+        $x=1;
+        foreach($sobrenome as $str){
+            if(count($sobrenome)==5){
+                if($x==3 && strlen($str)>3){
+                    $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
+                    goto s;
+                }elseif(($x==2||$x==4)&&$str!='de'&&$str!='da'&&$str!='do'&&$str!='dos'){
+                    $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
+                    goto s;
+                }
+            }elseif(count($sobrenome)>5){
+                if(($x==3||$x==4) && strlen($str)>3){
+                    $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
+                    goto s;
+                }
+            }
+            if(strtolower($str) != 'das' && strtolower($str) != 'da' && strtolower($str) != 'de' && strtolower($str) != 'do' && strtolower($str) != 'dos'){
+                $nomeCompleto .=ucfirst($str).' ';
+            }else{
+                $nomeCompleto .=$str.' ';
+            }
+            s:
+            $x++;
+        }
+        return trim($nomeCompleto);
+    }
 }
 ?>
