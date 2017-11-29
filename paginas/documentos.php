@@ -15,12 +15,18 @@
     $mm=substr($batismo,-5,2);
     $aa=substr($batismo,0,4);
     
+    
     $nome=ModelValidador::iniciaisMaiusculas($nome);
     $pai=ModelValidador::iniciaisMaiusculas($pai);
     $mae=ModelValidador::iniciaisMaiusculas($mae);
     $nomes=explode(' ',$nome);
     $membro=strtolower($nomes[0]);
+    $esp="&nbsp&nbsp&nbsp&nbsp";
     
-    echo '<script>var batizado="'.$membro.'"</script>';
-    echo '<script>var id="'.$id.'"</script>';
+    echo '<script>var batizado="'.$membro.'";
+                  var id="'.$id.'"; 
+                  var nome="'.$nome.'";
+                  var pai="'.$pai.'";
+                  var mae="'.$mae.'";
+         </script>';
 ?>

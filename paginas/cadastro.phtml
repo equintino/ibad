@@ -12,7 +12,7 @@
       $('#image-holder img').attr('src', original);
       $('#fileUpload').change(function(){
          $('.foto :hidden').attr('value','');
-      })      
+      })   
    })
 </script>
 
@@ -104,7 +104,7 @@
                           echo ' - CEP'.$item->getcep();
                        }
                        if($item->getdt_batismo() && $item->getdt_batismo()!='0000-00-00'){
-                        echo '<tr><td class="nome col1">'.$titulos[5].' </td><td class="dados col2"><a href='.Utils::createLink('documentos', array('id'=>$item->getid(),'act'=>'cert')).'>&nbsp'.ModelValidador::data($item->getdt_batismo()).'</a></td><td class="nome3 col3">'.$titulos[9].'</td><td class="dados col4">&nbsp'.$item->getigbatismo().'</td><td class="nome2 col5">'.$titulos[6].' </td><td class="dados col6">'.  ModelValidador::data($item->getdt_ingresso()).'</td></tr>';
+                        echo '<tr><td class="nome col1">'.$titulos[5].' </td><td title="Clique para ver o certificado." class="dados col2"><a href='.Utils::createLink('documentos', array('id'=>$item->getid(),'act'=>'cert')).'>&nbsp'.ModelValidador::data($item->getdt_batismo()).'</a></td><td class="nome3 col3">'.$titulos[9].'</td><td class="dados col4">&nbsp'.$item->getigbatismo().'</td><td class="nome2 col5">'.$titulos[6].' </td><td class="dados col6">'.  ModelValidador::data($item->getdt_ingresso()).'</td></tr>';
                        }
                      echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
                     }elseif($cont > $y){

@@ -5,13 +5,13 @@
   include_once '../dao/ModelSearchCriteria.php';
   include_once '../validacao/ModelValidador.php';
   include_once '../validacao/valida_cookies.php';
+  include_once 'redimensiona.php';
   
   $dao = new Dao();
   $model = new Model();
   @$mes = ModelValidador::tirarAcento($_POST['mes']);
   @$ano = $_POST['ano'];
   $act=$_GET['act'];
-  //print_r([$_POST,$_GET,$_FILES]);die;
   foreach($_POST as $key => $item){
      if($key=='dia'){
         $key='dt';
@@ -40,17 +40,13 @@
      }elseif($key=='valor'||$key=='movimentacao'){
         $key=$_POST['movimentacao'];
         if($item){
-           //echo $item;
            $item=ModelValidador::removePonto($_POST['valor']);
-           //echo $item;
         }
-        //echo $item;die;
      }elseif($key=='mes'){
         $item=ModelValidador::numeroMes($item);
      }
      if($key!='MAX_FILE_SIZE' && $key!='mesAno'){
         $classe='set'.$key;
-        //print_r($key);echo '<br>';
         $model->$classe($item);
      }
   }
@@ -63,7 +59,6 @@
 	$target_dir = "../web/imagens/fotos/";
             $target_file = $target_dir . basename($_FILES["foto"]["name"]);
         
-        //echo $target_file;die;
 	$uploadOk = 1;
 
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -98,27 +93,27 @@
 	    valida_cookies::popup("O arquivo não pode ser salvo.");
 	// if everything is ok, try to upload file
 	} else {
-	    if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
+            $imagem = new Image();
+            $imagem->resize($_FILES["foto"]["tmp_name"], 250, 350);
+            $imagem->saveImage("$target_file");
+            //print_r(Image::_getImageSize);
+            /*echo $target_file;die;
+	    if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)){
 		echo "The file ". basename( $_FILES["foto"]["name"]). " has been uploaded.";
 	    } else {
 		valida_cookies::popup("Erro no envio do arquivo.");
-	    }
+	    }*/
 	}
 
 	///// /////// //////// //////
 	$foto = str_replace('../web/','',$target_file);
       }
-      //echo $foto;die;
         $model->setfoto($foto); 
-        //echo '<pre>';
-     //print_r($model);die;
      $model->setexcluido(0);
      $dao->grava($model);
      }
   
   if($act == 'rel'){ 
-     //echo '<pre>';
-     //print_r($model);die;
      $dao->grava2($model);
   }
 ?>

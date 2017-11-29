@@ -1,5 +1,6 @@
 <script>
     $(document).ready(function(){
+        $('.certificado, certificadoVerso').hide();
         var font = '25px';
         var familia = 'Pacifico';
         var familia2 = 'Courgette';
@@ -20,7 +21,7 @@
             position: 'relative',
             top: '210px',
             left: '360px',
-            fontSize: '30px',
+            fontSize: '33px',
             width: '480px',
             textAlign: 'center',
             fontFamily: familia5,
@@ -85,15 +86,21 @@
                 $(location).attr('href','index.php?pagina=documentos&id='+id+'&act=cert');
             })
         })
+        $('.membro').text(nome);
+        $('.pai').text(pai);
+        $('.mae').text(mae);
+        //$('.dt_batismo').text(dtBatismo);
+        $('.certificado, certificadoVerso').fadeIn(200);
+        //alert(dtBatismo);
     })
 </script>
 <div class="conteudo">
 <?php if($act=='cert'): ?>    
     <div class="certificado">
-        <div class="membro"><?= $nome ?></div>
-        <div class="pai"><?= $pai ?></div>
-        <div class="mae"><?= $mae ?></div>
-        <div class="dt_batismo"><?= $dd ?>&nbsp&nbsp&nbsp&nbsp<?= $mm ?>&nbsp&nbsp&nbsp&nbsp<?= $aa ?></div>
+        <div class="membro"></div>
+        <div class="pai"></div>
+        <div class="mae"></div>
+        <div class="dt_batismo"><?= $dd.$esp.$mm.$esp.$aa ?></div>
     </div>
     <div class="msg"></div>
 <?php elseif($act=='verso'): ?>
