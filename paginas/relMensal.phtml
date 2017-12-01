@@ -44,23 +44,7 @@
                $lista .="'";
                echo '<script>
                         var membros='.$lista.';
-                     </script>';
-               
-               //$search->settabela('saldo');
-               //$search->setano($ano);
-               //$search->setmes($mes);
-               //$numeroMes=ModelValidador::numeroMes($mes);
-               //$relatorio=$dao->encontre($search);
-               //foreach($relatorio as $relMes);
-               //echo '<pre>';
-               //echo $mes;
-               //print_r($relMes->getmes());die;
-               //if($continua != 1){
-                  //if($relatorio){
-                     //echo 'Relatório do mês de '.$mes.' ja foi feito.';
-                     //die;
-                  //}
-               //}
+                     </script>';               
          ?>
          <form class="font_1" id="cadastro" action="../paginas/add.php?act=rel" method="POST" >
          <table class="notprint">
@@ -152,7 +136,6 @@
                      <?php 
                        echo '<tr><td align=center>01</td><td>SALDO ANTERIOR</td><td align=center></td><td align=center></td><td align=center></td><td align=right>'.number_format($saldo,'2',',','.').'</td></tr>';
                        $resumo=array();
-                          //print_r($relatorios);die;
                        foreach($relatorios as $relatorio){
                          echo '<tr>';
                           foreach($variaveis as $item){
@@ -212,7 +195,6 @@
              <tr><?php foreach($colunas as $col)echo "<th>$col</th>";?></tr>
              <?php 
                 echo '<tr><td>SALDO ANTERIOR</td><td></td><td align=right>'.number_format($saldoAnterior,'2',',','.').'</td></tr>';
-                //print_r($resumo);die;
                 $ofertas=array();
                 $dizimo=array();
                 foreach($resumo as $cel){
@@ -230,28 +212,11 @@
                 echo '<tr><td colspan=3 ></td></tr>';
                 echo '<tr><td align=right colspan=2>SALDO PARA O MÊS SEGUINTE</td><td align=right>'.number_format($saldoAnterior+$somaEntrada-$somaSaida,'2',',','.').'</td></tr>'; 
                 if($conclui==1){
-                  /*if(isset($datas)){
-                     $ano=substr($datas->getdt(),0,4);
-                     $mes=ModelValidador::nomeMes(substr($datas->getdt(),5,2));
-                  }
-                   $ano=substr($_GET['mes'],-4,4);
-                   $mes=substr($_GET['mes'],0,2);
-                   $search->settabela('saldo');
-                   $search->setano($ano);
-                   $search->setmes($mes);
-                   $search->setsaldo($saldoAnterior+$somaEntrada-$somaSaida);
-                   //echo 'estou aqui';
-                   print_r([$search]);die;
-                   $conferiMes=$dao->encontre($search);
-                   print_r([$search,$conferiMes]);die;
-                   if(!$conferiMes){*/
                      $model->setsaldo($saldoAnterior+$somaEntrada-$somaSaida);
                      $model->setano($ano);
                      $model->setmes($mes);
                      $model->settabela('saldo');
-                     //print_r($model);die;
                      $dao->grava3($model);
-                   //}
                 }           
              ?>
          </table>

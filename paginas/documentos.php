@@ -28,5 +28,6 @@
                   var nome="'.$nome.'";
                   var pai="'.$pai.'";
                   var mae="'.$mae.'";
+                  var act="'.$act.'";
          </script>';
 ?>

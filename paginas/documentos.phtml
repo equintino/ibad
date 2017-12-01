@@ -20,7 +20,7 @@
         $('.membro').css({
             position: 'relative',
             top: '210px',
-            left: '360px',
+            left: '330px',
             fontSize: '33px',
             width: '480px',
             textAlign: 'center',
@@ -89,12 +89,21 @@
         $('.membro').text(nome);
         $('.pai').text(pai);
         $('.mae').text(mae);
-        //$('.dt_batismo').text(dtBatismo);
         $('.certificado, certificadoVerso').fadeIn(200);
-        //alert(dtBatismo);
+        var link = "../web/certificado.php?id="+id+"&act="+act+"";
+        $('#certificado').click(function(){
+            window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
+        })
     })
 </script>
-<div class="conteudo">
+<?php
+    //$link="../web/certificado.php?id=$id&act=$act";
+   //echo '<script>var link='.$link.'</script>';
+?>
+<div class="imprime">
+        <button id='certificado' >IMPRIMIR</button>
+</div>
+<div class="conteudo" id="printable">
 <?php if($act=='cert'): ?>    
     <div class="certificado">
         <div class="membro"></div>
