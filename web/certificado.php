@@ -3,6 +3,7 @@
 <head>   
     <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Great+Vibes|Pinyon+Script|Tangerine" rel="stylesheet"> 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <meta charset="utf-8" />
 <style>  
     .certificado img, .certificadoVerso img{
@@ -23,7 +24,7 @@
         position: absolute;
         top: 314px;
         left: 65px;
-        font-size: 37px;
+        font-size: 36px;
         width: 435px;
         text-align: center;
         font-family: 'Great Vibes';
@@ -33,7 +34,7 @@
         position: absolute;
         top: 312px;
         left: 495px;
-        font-size: 37px;
+        font-size: 36px;
         width: 440px;
         text-align: center;
         font-family: 'Great Vibes';
@@ -42,9 +43,14 @@
     .dt_batismo{
         position: absolute;
         top: 505px;
-        left: 150px;
-        font-size: 37px;
+        left: 155px;
+        font-size: 36px;
         font-weight: 700;
+    }
+    @media print {
+        .noprint {
+          visibility: hidden;
+        }
     }
 </style>
 <script>
@@ -72,8 +78,16 @@
                 $(location).attr('href','../web/certificado.php?&id='+id+'&act=cert');
             })
         })
-    })
-</script>
+        $('#btnPrint').css({
+            position:'absolute',
+            top: '670px',
+            zIndex: '1'
+        })
+        $("#btnPrint").click(function(){
+            print();
+        });
+    });
+    </script>
 </head>
 <body>
 <?php
@@ -130,5 +144,6 @@
     </div>
 <?php endif; ?>
 </div>
+    <button id="btnPrint" class="noprint">Imprimir</button>
 </body>
 </html>
