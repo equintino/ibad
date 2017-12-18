@@ -19,8 +19,12 @@
     <!-- Fim Calendário -->
     <script>
         $(document).ready(function(){
-            //$('<img src="../web/img/sair.png" title="Sair" height="28px" />').appendTo($('#sair'));
-            
+            $('<img src="../web/img/sair.png" title="Sair" height="28px" />').appendTo($('#sair'));
+            $('#sair img')
+                .css({
+                    float:'right',
+                    paddingLeft: '10px'
+                });
             $('#sair img').mouseover(function(){
                 $(this).css({
                     cursor:'pointer'
@@ -32,110 +36,12 @@
             $('#flashes').fadeOut(2000,function(){
                 $(this).hide('slow');
             }) 
-            $('.principal').css({
-                //listStyle: 'none',
-                //padding: '0px',
-                //margin: '0px',
-                //background: '#f1f1f1',
-                //border: 'solid red',
-                //width: '600px'
-                //position: 'absolute',
-                //left: '600px'
+            $('.menu ul').css({
+                position: 'absolute',
+                left: '600px'
             })
-            $('.principal li').css({
-                //display: 'inline',
-                //float: 'left',
-                //padding: '5px'
-            })
-            $('.submenu').css({
-                //display: 'none',
-                //top: '20px'
-            })
-            //$('.submenu li').css('display','block');
-            //background: #444;
-            //display: none;
-        //}
         })
     </script>
-    <style>
-        #sair img{
-            float: right;
-            padding-left: 10px;
-        }
-        .menu,
-        .submenu {
-            margin: 0;
-            padding: 0;
-        }
-        .clearfix:after{
-            content: '.';
-            display: block;
-            clear: both;
-            height: 0;
-            line-height: 0;
-            font-size: 0;
-            visibility: hidden;
-            overflow: hidden;
-        }
-        .menu,
-        .submenu {
-            list-style: none;
-            background: gray;
-        }
-        .submenu {
-            //background: #444;
-        }
-        .menu a{
-            text-decoration: none;
-            display: block;
-            padding: 10px;
-            color: #fff;
-            font-family: sans-serif;
-            font-size: 14px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-        .menu li {
-            position: relative;
-        }
-        .menu > li {
-            float: left;
-        }
-        .menu li:hover .submenu{
-            display: block;
-        }
-        .submenu {
-            display: none;
-            position: absolute;
-            left: 598px;
-            min-width: 165px;
-            top: 89px;
-        }
-        .menu > li:hover{
-            background: #444;
-        }
-        .submenu li:hover {
-            background: #555;
-        }
-       /* ul{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            border: solid red;
-            background: #f1f1f1;
-        }
-        .principal > li{
-            display: inline;
-            padding: 10px;
-            border: solid green;
-            float: left;
-            //height: 60px;
-        }
-        .submenu li{
-            //display: block;
-            //position: absolute;
-        }*/
-    </style>
 </head>
 <body id="page">
   <div class="SITE_ROOT" id="SITE_ROOT" >
@@ -145,23 +51,23 @@
       <div id="cabecalho">
           <span class="titulo">IBAD </span> &nbsp&nbsp-&nbsp <span class="cor_1" id="logo">Igreja Batista do Amor de Deus</span>
           <hr size="0.5" class="l1">
-        <span id="sair"><img src="../web/img/sair.png" title="Sair" height="28px" /></span>
+        <span id="sair"></span>
          <div class="menu" >
-             <ul class="menu">
+             <ul>
              <!--<button>-->
                    <?php 
                      $mes_=  ModelValidador::nomeMes(date('m'));
                      $menu=array('home'=>'Home','cad'=>'Cadastro de Membros','lista'=>'Ficha de Membros','relatorio'=>'Relatórios','relMensal_'=>'Movimentação');    
                      foreach($menu as $key => $item){
                        if($item == 'Movimentação'){
-                          echo '<li><a href="index.php?pagina=relMensal&&act=cad" id="movimento" >'.$item.'</a></li>';
+                          echo '<a href="index.php?pagina=relMensal&&act=cad" id="movimento" ><button class="bnt">'.$item.'</button></a>';
                        }elseif($item == 'Ficha de Membros'){
-                          echo '<li class="sub"><a href="'.Utils::createLink('cadastro',array('act'=>'lista','pag'=>0)).'" >'.$item.'</a></li>';
-                          echo '<ul class="submenu"><li><a href="#">Fichas</a></li><li><a href="#">Carteirinhas</a></li></ul>';
+                          echo '<a href="'.Utils::createLink('cadastro',array('act'=>'lista','pag'=>0)).'" ><button class="bnt">'.$item.'</button></a>';
+                          echo '<li>Fichas</li><li>Carteirinhas</li>';
                        }elseif($item == 'Cadastro de Membros'){
-                          echo '<li><a href="'.Utils::createLink('cadastro',array('act'=>'cad','pag'=>0)).'" >'.$item.'</a></li>';
+                          echo '<a href="'.Utils::createLink('cadastro',array('act'=>'cad','pag'=>0)).'" ><button class="bnt">'.$item.'</button></a>';
                        }else{
-                          echo '<li><a href="'.Utils::createLink($key).'" >'.$item.'</a></li>';
+                          echo '<a href="'.Utils::createLink($key).'" ><button class="bnt">'.$item.'</button></a>';
                        }
                      }
                    ?>

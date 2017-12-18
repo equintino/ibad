@@ -89,10 +89,15 @@
         $('.membro').text(nome);
         $('.pai').text(pai);
         $('.mae').text(mae);
-        $('.certificado, certificadoVerso').fadeIn(200);
-        var link = "../web/certificado.php?id="+id+"&act="+act+"";
+        $('.certificado, certificadoVerso').fadeIn(200);       
         $('#certificado').click(function(){
-            window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
+            if(act=='carteirinha'){
+                var link = "../web/carteirinha.php?ids="+ids+"&act="+act+"";
+               window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740'); 
+            }else{
+                var link = "../web/certificado.php?id="+id+"&act="+act+"";
+                window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
+            }
         })
     })
 </script>
@@ -114,6 +119,11 @@
     <div class="msg"></div>
 <?php elseif($act=='verso'): ?>
     <div class="certificadoVerso">
+        <div></div>
+    </div>
+    <div class="msg"></div>
+<?php elseif($act=='carteirinha'): ?>
+    <div class="carteirinha">
         <div></div>
     </div>
     <div class="msg"></div>

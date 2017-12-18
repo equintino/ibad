@@ -1,6 +1,7 @@
 <?php
-    $id=$_GET['id'];
+    @$id=$_GET['id'];
     $act=$_GET['act'];
+    @$ids=$_GET['ids'];
     
     $dao = new Dao();
     $search = new ModelSearchCriteria();
@@ -25,6 +26,7 @@
     
     echo '<script>var batizado="'.$membro.'";
                   var id="'.$id.'"; 
+                  var ids="'.$ids.'"; 
                   var nome="'.$nome.'";
                   var pai="'.$pai.'";
                   var mae="'.$mae.'";

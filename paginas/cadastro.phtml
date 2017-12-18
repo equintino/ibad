@@ -12,7 +12,46 @@
       $('#image-holder img').attr('src', original);
       $('#fileUpload').change(function(){
          $('.foto :hidden').attr('value','');
-      })   
+      })  
+      $('.ed').css('marginTop','5px');
+      $('.cart').css({
+          marginLeft:'5px',
+          border: '1px solid gray',
+          width: '40px',
+      });
+      $(':checkbox').prop('checked',false);
+      var x = 0;
+      var y = 0;
+      $('.cart').click(function(){
+          //alert($('.cart'));
+          ids = [];
+          $.each($(":checkbox"), function(){
+                if($(this).is(":checked")){
+                    ids.push($(this).attr('name'));
+                    //alert(x);
+                    if(x==0){
+                        var conf=confirm('Deseja selecionar mas algum membro?');
+                if(!conf){
+                    //alert('Abrir pagina.');
+                    $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'');
+                    return false;
+                }
+                    }
+                }
+                //alert(conf);
+          })
+          //alert(y);
+            if(y==0){
+                $('.bntcart').append('<button>Imprimir</button>');
+                y=1;
+            }
+                x++;
+            //alert($('.bntcart button').test());
+                    //alert(ids);
+      })
+      $('.bntcart').click(function(){
+          $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'');        
+      })
    })
 </script>
 
@@ -42,6 +81,7 @@
                     echo 'Páginas ';
                     echo $pag .' de ';
                     echo ceil(count($lista)/4);
+                    echo '<span class="bntcart"></span>';
                   echo '</div>';
                   if(($x/4)+1 == ceil(count($lista)/4)){
                      $class2='class=disabled';
@@ -52,14 +92,15 @@
            echo '<table cellspacing=0 border=1>';
             echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
                   $cont=0;
+                  //echo '<select name="cart">';
                   foreach($lista as $keys => $item){
                      $cont++;
                     if($cont > $x && $cont < $y){
                        if($item->getnome()){
-                        echo '<tr><td class="nome">'.$titulos[0].' </td><td class=dados colspan=3>&nbsp'.$item->getnome().'</td><td class=nome2>'.$titulos[3].' </td><td class=dados>&nbsp'.ModelValidador::data($item->getdt_nascimento()).'</td>';
+                        echo '<tr><td class="nome">'.$titulos[0].' </td><td class=dados colspan=3>&nbsp'.$item->getnome().' </td><td class=nome2>'.$titulos[3].' </td><td class=dados>&nbsp'.ModelValidador::data($item->getdt_nascimento()).'</td>';
                     if(substr($item->getfoto(),0,7)=='imagens'){
                         echo '<td class=fotoFicha width="250" height="50" rowspan="5" align="center">';
-                      echo '<span><img title="'.$item->getnome().'" src="'.$item->getfoto().'" /></span><br><a href="../web/index.php?pagina=cadastro&act=cad&pag=0&id='.$item->getid().'" >&nbsp&nbsp&nbsp&nbspEditar Dados</a>';
+                      echo '<span><img title="'.$item->getnome().'" src="'.$item->getfoto().'" /></span><br><a href="../web/index.php?pagina=cadastro&act=cad&pag=0&id='.$item->getid().'" ><img class="ed" src="../web/img/edicao.ico" height=15px title="Editar dados"/></a><div class="cart" title="Selecione para ver a carteirinha"><img src="../web/img/cracha.ico" height=15px /><input type="checkbox" name="'.$item->getid().'"/></dic>';
                     echo '</td>';
                     }
                     echo '</tr>';
@@ -104,13 +145,14 @@
                           echo ' - CEP'.$item->getcep();
                        }
                        if($item->getdt_batismo() && $item->getdt_batismo()!='0000-00-00'){
-                        echo '<tr><td class="nome col1">'.$titulos[5].' </td><td title="Clique para ver o certificado." class="dados col2"><a href='.Utils::createLink('documentos', array('id'=>$item->getid(),'act'=>'cert')).'>&nbsp'.ModelValidador::data($item->getdt_batismo()).'</a></td><td class="nome3 col3">'.$titulos[9].'</td><td class="dados col4">&nbsp'.$item->getigbatismo().'</td><td class="nome2 col5">'.$titulos[6].' </td><td class="dados col6">'.  ModelValidador::data($item->getdt_ingresso()).'</td></tr>';
+                        echo '<tr><td class="nome col1">'.$titulos[5].' </td><td title="Clique para ver o certificado." class="dados col2"><a href='.Utils::createLink('documentos', array('id'=>$item->getid(),'act'=>'cert')).'>&nbsp'.ModelValidador::data($item->getdt_batismo()).'</a></td><td class="nome3 col3">'.$titulos[9].'</td><td class="dados col4">&nbsp'.$item->getigbatismo().'</td><td class="nome2 col5">'.$titulos[6].' </td><td class="dados col6">'.ModelValidador::data($item->getdt_ingresso()).'</td></tr>';
                        }
                      echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
                     }elseif($cont > $y){
                        break;
                     }
                   }
+                  //echo '</select>';
                        echo '</table>';
       echo '</fieldset>';
       

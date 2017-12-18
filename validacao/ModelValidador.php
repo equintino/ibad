@@ -170,6 +170,11 @@ final class ModelValidador {
                     $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
                     goto s;
                 }
+            }elseif(strlen($string)>27){
+                if(($x==2||$x==2) && strlen($str)>3){
+                    $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
+                    goto s;
+                }                
             }
             if(strtolower($str) != 'das' && strtolower($str) != 'da' && strtolower($str) != 'de' && strtolower($str) != 'do' && strtolower($str) != 'dos'){
                 $nomeCompleto .=ucfirst($str).' ';

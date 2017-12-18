@@ -36,10 +36,11 @@
             if($act=='cad'):
                $search = new ModelSearchCriteria();
                $search->settabela('lt_membros');
+               $search->setorder('nome');
                $membros=$dao->encontre($search);
                $lista = "'";
                foreach($membros as $membro){
-                  $lista .= $membro->getnome().',';
+                  $lista .= mb_strtoupper($membro->getnome().',','UTF-8');
                }
                $lista .="'";
                echo '<script>
@@ -49,11 +50,11 @@
          <form class="font_1" id="cadastro" action="../paginas/add.php?act=rel" method="POST" >
          <table class="notprint">
                  <caption>MOVIMENTO DO MÊS DE <?= mb_strtoupper($mes,'UTF-8')?> DE <?= $ano ?></caption>
-                 <tr><td align="right">DIA: </td><td><input autofocus type="text" name="dia" size="1" maxlength="2"/></td></tr>
+                 <tr><td align="right">DIA: </td><td><input autofocus required type="text" name="dia" size="1" maxlength="2"/></td></tr>
                  <tr>
                      <td align="right">MOVIMENTAÇÃO: </td>
                      <td>
-                     <select id="movimentacao" name="movimentacao" >
+                     <select required id="movimentacao" name="movimentacao" >
                          <option></option>
                          <option value="entrada">ENTRADA</option>
                          <option value="saida">SAÍDA</option>
@@ -65,8 +66,8 @@
                         <input type="radio" name="tipo" value="oferta"/>Oferta
                      </span>
                      </td></tr>
-                 <tr><td align="right">DESCRIÇÃO: </td><td id="descricao"><input type="text" name="descricao" size="40" /></td></tr>
-                 <tr><td align="right">VALOR: </td><td><input type="text" name="valor" size="10" /></td></tr>
+                 <tr><td align="right">DESCRIÇÃO: </td><td id="descricao"><input required type="text" name="descricao" size="40" /></td></tr>
+                 <tr><td align="right">VALOR: </td><td><input required type="text" name="valor" size="10" /></td></tr>
                  <br>
                  <tr>
                  <input name='mesAno' type='hidden' value='<?= ModelValidador::numeroMes($mes).'/'.$ano; ?>' >
