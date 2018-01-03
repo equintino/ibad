@@ -1,3 +1,14 @@
+<link href="https://fonts.googleapis.com/css?family=Kelly+Slab|Medula+One|Stint+Ultra+Condensed|Tulpen+One|Unica+One" rel="stylesheet"> 
+<style>  
+    .carteirinha{
+        /*font-family: 'Kelly Slab';
+        font-family: 'Unica One';*/
+        font-family: 'Medula One';
+        /*font-family: 'Tulpen One';
+        font-family: 'Stint Ultra Condensed';*/
+        font-size: 25px;
+    }
+</style>
 <script>
     $(document).ready(function(){
         $('.certificado, certificadoVerso').hide();
@@ -66,6 +77,121 @@
         })
         $('.certificadoVerso').append('<img width=700px src="../web/img/'+batizado+'Beca.jpg" />')
         $('.certificadoVerso').append('<img src="../web/img/certificado (ATRAS)branco.png" />')
+        
+        if(act=='carteirinha'){
+            $('.carteirinha').append('<img src="../web/img/carteirinha.png" height="300px" />')
+            $('.carteirinha img').css({
+                position: 'absolute',
+                left: '15%',
+                top: '9%',
+            })
+            $('.foto1').append('<img src="'+foto1+'" height="100px" width="80px" />')
+            $('.foto1 img').css({
+                margin: '15px 167px'
+            })
+            $('.nome1').text(nome1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '-10px 240px'
+            })
+            $('.pai1').text(pai1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '10px 240px'
+            })
+            $('.mae1').text(mae1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '-39px 410px'
+            })
+            $('.dt_nascimento1').text(dt_nascimento1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '54px 240px'
+            })
+            $('.estcivil1').text(estcivil1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '-84px 420px'
+            })
+            $('.dt_ingresso1').text(dt_ingresso1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '97px 238px'
+            })
+            $('.dt_batismo1').text(dt_batismo1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '-126px 415px'
+            })
+            $('.funcao1').text(funcao1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '128px 260px'
+            })
+            $('.rg1').text(rg1).css({
+                position: 'relative',
+                zIndex: '1',
+                margin: '-158px 430px'
+            })
+            $('.endereco1').text(endereco1).css({
+                position: 'relative',
+                zIndex: '1',
+                width: '310px',
+                margin: '-279px 670px',
+                fontSize: '21px'
+            })
+            $('.ano1').text(ano1).css({
+                position: 'relative',
+                zIndex: '1',
+                width: '310px',
+                margin: '382px 633px',
+                fontSize: '15px',
+                fontFamily: 'sans',
+                fontWeight: '900',
+                color: '#870000'
+            })
+            $('.ano2').text(ano2).css({
+                position: 'relative',
+                zIndex: '1',
+                width: '310px',
+                margin: '-400px 705px',
+                fontSize: '15px',
+                fontFamily: 'sans',
+                fontWeight: '900',
+                color: '#870000'
+            })
+            $('.ano3').text(ano3).css({
+                position: 'relative',
+                zIndex: '1',
+                width: '310px',
+                margin: '382px 775px',
+                fontSize: '15px',
+                fontFamily: 'sans',
+                fontWeight: '900',
+                color: '#870000'
+            })
+            $('.ano4').text(ano4).css({
+                position: 'relative',
+                zIndex: '1',
+                width: '310px',
+                margin: '-400px 850px',
+                fontSize: '15px',
+                fontFamily: 'sans',
+                fontWeight: '900',
+                color: '#870000'
+            })
+            $('.ano5').text(ano5).css({
+                position: 'relative',
+                zIndex: '1',
+                width: '310px',
+                margin: '382px 925px',
+                fontSize: '15px',
+                fontFamily: 'sans',
+                fontWeight: '900',
+                color: '#870000'
+            })
+       }
         $('.certificadoVerso img').wrap('<div class=beca></div>')
         $('.beca').css({
             position: 'absolute'
@@ -93,7 +219,7 @@
         $('#certificado').click(function(){
             if(act=='carteirinha'){
                 var link = "../web/carteirinha.php?ids="+ids+"&act="+act+"";
-               window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740'); 
+               window.open(link,'targetWindow','toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1024,height=740'); 
             }else{
                 var link = "../web/certificado.php?id="+id+"&act="+act+"";
                 window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
@@ -101,10 +227,6 @@
         })
     })
 </script>
-<?php
-    //$link="../web/certificado.php?id=$id&act=$act";
-   //echo '<script>var link='.$link.'</script>';
-?>
 <div class="imprime">
         <button id='certificado' >IMPRIMIR</button>
 </div>
@@ -124,7 +246,22 @@
     <div class="msg"></div>
 <?php elseif($act=='carteirinha'): ?>
     <div class="carteirinha">
-        <div></div>
+        <div class="foto1"></div>
+        <div class="nome1"></div>
+        <div class="pai1"></div>
+        <div class="mae1"></div>
+        <div class="dt_nascimento1"></div>
+        <div class="estcivil1"></div>
+        <div class="dt_ingresso1"></div>
+        <div class="dt_batismo1"></div>
+        <div class="funcao1"></div>
+        <div class="rg1"></div>
+        <div class="endereco1"></div>
+        <div class="ano1"></div>    
+        <div class="ano2"></div>   
+        <div class="ano3"></div>   
+        <div class="ano4"></div>   
+        <div class="ano5"></div>      
     </div>
     <div class="msg"></div>
 <?php endif; ?>

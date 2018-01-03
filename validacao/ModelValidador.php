@@ -152,21 +152,36 @@ final class ModelValidador {
         $dado_=preg_replace( '#[^0-9]#', '.', $dado );
         return $dado_;
     }
-    public static function iniciaisMaiusculas($string){
+    public static function iniciaisMaiusculas($string, $act=null){
         $sobrenome=explode(' ',mb_strtolower($string,'utf-8'));
         $nomeCompleto=null;
         $x=1;
         foreach($sobrenome as $str){
-            if(count($sobrenome)==5){
-                if($x==3 && strlen($str)>3){
+            if('maria'==strtolower($str) && $act=='carteirinha'){
+                $str='M.ª';
+            }
+            if('nascimento'==strtolower($str) && $act=='carteirinha'){
+                $str='Nasc.';
+            }
+            if(strlen($string)>18 && $act=='carteirinha'){
+                if(($x==2 ) && strlen($str)>3){
                     $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
                     goto s;
-                }elseif(($x==2||$x==4)&&$str!='de'&&$str!='da'&&$str!='do'&&$str!='dos'){
+                }elseif((($x==3||$x==6) && strlen($str)>3) && count($sobrenome) > 3){
+                    $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
+                    goto s;
+                }              
+            }
+            if(count($sobrenome)==5){
+                if($x==3 && strlen($str)>3 && $act!='nome'){
+                    $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
+                    goto s;
+                }elseif(($x==2||$x==4)&&$str!='de'&&$str!='da'&&$str!='do'&&$str!='dos' && $act!='nome'){
                     $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
                     goto s;
                 }
             }elseif(count($sobrenome)>5){
-                if(($x==3||$x==4) && strlen($str)>3){
+                if(($x==3||$x==4) && strlen($str)>3 && $act!="nome"){
                     $nomeCompleto .=mb_strtoupper(substr($str,0,1),'utf-8').'. ';
                     goto s;
                 }
@@ -185,6 +200,72 @@ final class ModelValidador {
             $x++;
         }
         return trim($nomeCompleto);
+    }
+    public static function logradouro($string){
+        //echo $string;
+        switch(strtolower($string)){
+           case 'rua':
+               $string='R.';
+               break;
+           case 'avenida':
+               $string='Av.';
+               break;
+           case 'travessa':
+               $string='Trv.';
+               break;
+           case 'alameda':
+               $string='Al.';
+               break;
+           case 'area':
+               $string='A.';
+               break;
+           case 'beco':
+               $string='Bc.';
+               break;
+           case 'bloco':
+               $string='Bl.';
+               break;
+           case 'campo':
+               $string='Cpo.';
+               break;
+           case 'canal':
+               $string='Can.';
+               break;
+           case 'condominio':
+               $string='Cond.';
+               break;
+           case 'conjunto':
+               $string='Cj.';
+               break;
+           case 'jardim':
+               $string='Jd.';
+               break;
+           case 'parque':
+               $string='Pq.';
+               break;
+           case 'casa':
+               $string='Cs.';
+               break;
+           case 'fundos':
+               $string='Fds.';
+               break;
+           default: 
+               //$string=self::iniciaisMaiusculas($string);
+               $string=$string;
+        }
+        return $string;
+        //echo $string;
+    }
+    public static function funcao($string){
+        switch($string){
+            case 'aventino quintino da silva':
+                $funcao='Pastor';
+                break;
+            default:
+                $funcao='Membro';
+                break;
+        }
+        return $funcao;
     }
 }
 ?>

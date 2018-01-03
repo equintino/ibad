@@ -1,13 +1,16 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <style>
-    #rodape{
+    #rodape, #dialog-confirm{
         display: none;
     } 
     .fotoFicha{
         background: #ccc;
     }
-</style>    
+</style> 
 <script>
-   $(document).ready(function(){
+   $(document).ready(function(){          
       var original=$('.foto :hidden').val();
       $('#image-holder img').attr('src', original);
       $('#fileUpload').change(function(){
@@ -21,33 +24,39 @@
       });
       $(':checkbox').prop('checked',false);
       var x = 0;
-      var y = 0;
+      var y = 0;     
       $('.cart').click(function(){
-          //alert($('.cart'));
           ids = [];
           $.each($(":checkbox"), function(){
                 if($(this).is(":checked")){
                     ids.push($(this).attr('name'));
-                    //alert(x);
                     if(x==0){
-                        var conf=confirm('Deseja selecionar mas algum membro?');
-                if(!conf){
-                    //alert('Abrir pagina.');
-                    $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'');
-                    return false;
-                }
+                        //var conf=confirm('Deseja selecionar mas algum membro?');
+                        
+                        $( "#dialog-confirm" ).dialog({
+                          resizable: false,
+                          //height: 140,
+                          modal: true,
+                          buttons: {
+                            "SIM": function() {
+                              $( this ).dialog( "close" );
+                              return false;
+                            },
+                            "NÂO": function() {
+                              $( this ).dialog( "close" );
+                              $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'');
+                              return true;
+                            }
+                          }
+                        })
                     }
                 }
-                //alert(conf);
           })
-          //alert(y);
             if(y==0){
                 $('.bntcart').append('<button>Imprimir</button>');
                 y=1;
             }
                 x++;
-            //alert($('.bntcart button').test());
-                    //alert(ids);
       })
       $('.bntcart').click(function(){
           $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'');        
@@ -72,6 +81,7 @@
         }
 ?>
 <div  class="conteudo" >
+    <div id="dialog-confirm" title="CARTEIRINHA">Deseja Selecionar Mais Membros?</div>   
     <div class="cadastro">
         <?php if($act=='lista'):?>
                <?php                   
@@ -92,7 +102,6 @@
            echo '<table cellspacing=0 border=1>';
             echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
                   $cont=0;
-                  //echo '<select name="cart">';
                   foreach($lista as $keys => $item){
                      $cont++;
                     if($cont > $x && $cont < $y){
@@ -152,7 +161,6 @@
                        break;
                     }
                   }
-                  //echo '</select>';
                        echo '</table>';
       echo '</fieldset>';
       
