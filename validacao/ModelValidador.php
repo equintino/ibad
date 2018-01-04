@@ -1,6 +1,5 @@
 <?php
 final class ModelValidador {
-
     private function __construct() {
     }
     public static function validar(Model $todo) {
@@ -33,11 +32,9 @@ final class ModelValidador {
             throw new Exception('Unknown priority: ' . $priority);
         }
     }
-
     private static function isValidStatus($status) {
         return in_array($status, Todo::allStatuses());
     }
-
     private static function isValidPriority($priority) {
         return in_array($priority, Todo::allPriorities());
     }
@@ -160,8 +157,8 @@ final class ModelValidador {
             if('maria'==strtolower($str) && $act=='carteirinha'){
                 $str='M.ª';
             }
-            if('nascimento'==strtolower($str) && $act=='carteirinha'){
-                $str='Nasc.';
+            if('filho'==strtolower($str) && $act=='carteirinha'){
+                $str='F.';
             }
             if(strlen($string)>18 && $act=='carteirinha'){
                 if(($x==2 ) && strlen($str)>3){
@@ -202,7 +199,6 @@ final class ModelValidador {
         return trim($nomeCompleto);
     }
     public static function logradouro($string){
-        //echo $string;
         switch(strtolower($string)){
            case 'rua':
                $string='R.';
@@ -250,11 +246,9 @@ final class ModelValidador {
                $string='Fds.';
                break;
            default: 
-               //$string=self::iniciaisMaiusculas($string);
                $string=$string;
         }
         return $string;
-        //echo $string;
     }
     public static function funcao($string){
         switch($string){

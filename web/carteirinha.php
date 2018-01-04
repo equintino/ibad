@@ -7,7 +7,7 @@
 <style>  
     .carteirinha{
         font-family: 'Medula One';
-        font-size: 33px;
+        font-size: 31px;
     }
     @media print {
         .noprint {
@@ -17,129 +17,146 @@
 </style>
 <script>
     $(document).ready(function(){
-        $('.carteirinha').append('<img src="../web/img/carteirinha.png" height="360px" />')
-        $('.carteirinha img').css({
-            position: 'absolute',
+        //alert(ids);
+        //x=1;
+        //ids=ids.split(',');
+        //var top='0';
+        //for(var x=1;x < 2;x++){
+            //top=parseInt(top)+parseInt(10);
+            //if(x==2){
+            //$('.carteirinha').append('<img src="../web/img/carteirinha.png" height="360px" />');
+        //$('.carteirinha img').css({
+            //position: 'absolute',
             //left: '5px',
-            top: '10px',
+            //marginTop: '0px'
+            //top: top+'px',
+        //})
+        //}die;
+            //$('.foto1').append('<img src="'+foto1+'" height="125px" width="90px" />')
+        $('.foto img').css({
+            position: 'absolute',
+            margin: '-357px 12px',
+            zIndex: -1
         })
-        $('.foto1').append('<img src="'+foto1+'" height="125px" width="85px" />')
-        $('.foto1 img').css({
-            margin: '8px 12px'
-        })
-        $('.nome1').text(nome1).css({
+        //}
+    //}
+        $('.nome').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '-13px 92px',
+            margin: '-227px 92px',
             width: '400px'
         })
-        $('.pai1').text(pai1).css({
+        $('.pai').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '24px 92px',
-            width: '200px',
-            //fontSize: '33px'
+            margin: '-190px 92px',
+            width: '210px'
         })
-        $('.mae1').text(mae1).css({
+        $('.mae').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '24px 299px',
-            width: '198px'
+            margin: '-190px 296px',
+            width: '210px',
+            //fontSize: '31px',
+            //border: 'solid red'
         })
-        $('.dt_nascimento1').text(dt_nascimento1).css({
+        $('.dt_nascimento').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '77px 82px',
+            margin: '-136px 82px',
             width: '140px'
         })
-        $('.estcivil1').text(estcivil1).css({
+        $('.estcivil').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '77px 280px',
+            margin: '-136px 280px',
             width: '150px',
             textAlign: 'center'
         })
-        $('.dt_ingresso1').text(dt_ingresso1).css({
+        $('.dt_ingresso').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '129px 82px',
+            margin: '-85px 82px',
             width: '140px'
         })
-        $('.dt_batismo1').text(dt_batismo1).css({
+        $('.dt_batismo').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '129px 298px',
+            margin: '-84px 298px',
             width: '140px'
         })
-        $('.funcao1').text(funcao1).css({
+        $('.funcao').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '169px 92px',
+            margin: '-44px 92px',
             width: '160px',
             //textAlign: 'center'
         })
-        $('.rg1').text(rg1).css({
+        $('.rg').css({
             position: 'absolute',
             zIndex: '1',
-            margin: '169px 325px',
+            margin: '-44px 325px',
             width: '140px'
         })
-        $('.endereco1').text(endereco1).css({
+        $('.endereco').css({
             position: 'absolute',
             zIndex: '1',
             width: '379px',
-            margin: '-130px 607px',
+            margin: '-355px 607px',
             fontSize: '30px'
         })
-        $('.ano1').text(ano1).css({
+        $('.ano1').css({
             position: 'absolute',
             zIndex: '1',
             //width: '310px',
-            margin: '28px 560px',
+            margin: '-194px 560px',
             fontSize: '20px',
             fontFamily: 'sans',
             fontWeight: '900',
             color: '#870000'
         })
-        $('.ano2').text(ano2).css({
+        $('.ano2').css({
             position: 'absolute',
             zIndex: '1',
             //width: '310px',
-            margin: '28px 650px',
+            margin: '-194px 650px',
             fontSize: '20px',
             fontFamily: 'sans',
             fontWeight: '900',
             color: '#870000'
         })
-        $('.ano3').text(ano3).css({
+        $('.ano3').css({
             position: 'absolute',
             zIndex: '1',
             //width: '310px',
-            margin: '28px 740px',
+            margin: '-194px 740px',
             fontSize: '20px',
             fontFamily: 'sans',
             fontWeight: '900',
             color: '#870000'
         })
-        $('.ano4').text(ano4).css({
+        $('.ano4').css({
             position: 'absolute',
             zIndex: '1',
             //width: '310px',
-            margin: '28px 830px',
+            margin: '-194px 830px',
             fontSize: '20px',
             fontFamily: 'sans',
             fontWeight: '900',
             color: '#870000'
         })
-        $('.ano5').text(ano5).css({
+        $('.ano5').css({
             position: 'absolute',
             zIndex: '1',
             //width: '310px',
-            margin: '28px 918px',
+            margin: '-194px 918px',
             fontSize: '20px',
             fontFamily: 'sans',
             fontWeight: '900',
             color: '#870000'
+        })
+        $('#btnPrint').click(function(){
+            window.print();
         })
     })
     </script>
@@ -170,6 +187,7 @@
     $ano=(date('Y'));
     
     $ids=explode(',',$_GET['ids']);
+    $x=1;
     foreach($ids as $id){           
         $search->setid($id);
         $model=$dao->encontrePorId($search);   
@@ -182,9 +200,9 @@
             $rg=$model->getrg();
         }
         
-        $dt_nascimento1=substr($model->getdt_nascimento(),-2,2).' / '.substr($model->getdt_nascimento(),-5,2).' / '.substr($model->getdt_nascimento(),0,4);
-        $dt_ingresso1=substr($model->getdt_ingresso(),-2,2).' / '.substr($model->getdt_ingresso(),-5,2).' / '.substr($model->getdt_ingresso(),0,4);
-        $dt_batismo1=substr($model->getdt_batismo(),-2,2).' / '.substr($model->getdt_batismo(),-5,2).' / '.substr($model->getdt_batismo(),0,4);
+        $dt_nascimento=substr($model->getdt_nascimento(),-2,2).' / '.substr($model->getdt_nascimento(),-5,2).' / '.substr($model->getdt_nascimento(),0,4);
+        $dt_ingresso=substr($model->getdt_ingresso(),-2,2).' / '.substr($model->getdt_ingresso(),-5,2).' / '.substr($model->getdt_ingresso(),0,4);
+        $dt_batismo=substr($model->getdt_batismo(),-2,2).' / '.substr($model->getdt_batismo(),-5,2).' / '.substr($model->getdt_batismo(),0,4);
         $endereco=ModelValidador::logradouro($model->gettipo()).' '.ModelValidador::iniciaisMaiusculas($model->getendereco()).', '.$model->getnumero().' - ';
         if($model->getcomplemento()){
             $z=explode(' ',$model->getcomplemento());
@@ -200,11 +218,12 @@
             foreach($z as $bar){
                 $bairro .=ModelValidador::logradouro($bar).' ';
             }
-            //$bairro .=ModelValidador::iniciaisMaiusculas($bar).' - ';
         }
         $endereco .=ModelValidador::iniciaisMaiusculas($bairro).'/'.$model->getestado();
+        /*
         echo '<script>
                 var act="'.$act.'";
+                var ids="'.$_GET['ids'].'";
                 var foto1="'.$model->getfoto().'";
                 var nome1="'.ModelValidador::iniciaisMaiusculas($model->getnome(),"nome").'";
                 var pai1="'.ModelValidador::iniciaisMaiusculas($model->getpai(),"carteirinha").'";
@@ -222,31 +241,39 @@
                 var ano4=parseInt(ano1)+3;
                 var ano5=parseInt(ano1)+4;
 
-             </script>';
-        echo '<script>var batizado=null;var id=null;var ids=null;var nome=null;var pai=null;var mae=null;
+             </script>';*/
+        echo '<script>var batizado=null;var id=null;var nome=null;var pai=null;var mae=null;
          </script>';
-    }
 ?>
 <div class="conteudo" id="printable">
-    <div class="carteirinha">
-        <div class="foto1"></div>
-        <div class="nome1"></div>
-        <div class="pai1"></div>
-        <div class="mae1"></div>
-        <div class="dt_nascimento1"></div>
-        <div class="estcivil1"></div>
-        <div class="dt_ingresso1"></div>
-        <div class="dt_batismo1"></div>
-        <div class="funcao1"></div>
-        <div class="rg1"></div>
-        <div class="endereco1"></div>
-        <div class="ano1"></div>    
-        <div class="ano2"></div>   
-        <div class="ano3"></div>   
-        <div class="ano4"></div>   
-        <div class="ano5"></div>      
+    <div class="carteirinha">     
+        <img src="../web/img/carteirinha.png" height="360px" />
+        <div class="foto"><img src="<?= $model->getfoto() ?>" height="120px" width="90px" /></div>
+        <div class="nome"><?= ModelValidador::iniciaisMaiusculas($model->getnome(),'nome') ?></div>
+        <div class="pai"><?= ModelValidador::iniciaisMaiusculas($model->getpai(),'carteirinha') ?></div>
+        <div class="mae"><?= ModelValidador::iniciaisMaiusculas($model->getmae(),'carteirinha') ?></div>
+        <div class="dt_nascimento"><?= $dt_nascimento ?></div>
+        <div class="estcivil"><?= $model->getestcivil() ?></div>
+        <div class="dt_ingresso"><?= $dt_ingresso ?></div>
+        <div class="dt_batismo"><?= $dt_batismo ?></div>
+        <div class="funcao"><?= $funcao ?></div>
+        <div class="rg"><?= $model->getrg() ?></div>
+        <div class="endereco"><?= $endereco ?></div>
+        <div class="ano1"><?= $ano ?></div>    
+        <div class="ano2"><?= $ano+1 ?></div>   
+        <div class="ano3"><?= $ano+2 ?></div>   
+        <div class="ano4"><?= $ano+3 ?></div>   
+        <div class="ano5"><?= $ano+4 ?></div>      
     </div>
 </div>
+    <script>var x=<?= $x ?>;</script>
+<?php
+    /*if($x==2){
+        die;
+    }*/
+    //$x++;
+  } 
+?>
     <button id="btnPrint" class="noprint">Imprimir</button>
 </body>
 </html>
