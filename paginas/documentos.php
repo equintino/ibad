@@ -14,13 +14,16 @@
     $dao = new Dao();
     $search = new ModelSearchCriteria();
     $search->settabela('lt_membros');
+    $model=$dao->encontre($search);
+    //echo '<pre>';
+    //print_r($model);die;
     
     $ano=(date('Y'));
     
     if($act=='carteirinha'){
         echo '<script>var ids="'.$ids.'"</script>';
-        $ids=explode(',',$_GET['ids']);
-        foreach($ids as $id){           
+        /*$ids=explode(',',$_GET['ids']);
+        foreach($ids as $id){          
             $search->setid($id);
             $model=$dao->encontrePorId($search);          
                         if(!$model->getrg()){
@@ -57,7 +60,11 @@
             </script>';
             echo '<script>var batizado=null;var id=null;var nome=null;var pai=null;var mae=null;
              </script>';
-        }
+        }*/
+        echo '<script>
+                var act="'.$act.'";
+                var batizado=null;var id=null;var nome=null;var pai=null;var mae=null;
+             </script>';
     }else{
         $search->setid($id);
         $model=$dao->encontrePorId($search);

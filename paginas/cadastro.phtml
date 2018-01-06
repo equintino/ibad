@@ -30,17 +30,14 @@
           $.each($(":checkbox"), function(){
                 if($(this).is(":checked")){
                     ids.push($(this).attr('name'));
-                    if(x==0){
-                        //var conf=confirm('Deseja selecionar mas algum membro?');
-                        
+                    if(x==0){                        
                         $( "#dialog-confirm" ).dialog({
                           resizable: false,
-                          //height: 140,
                           modal: true,
                           buttons: {
                             "SIM": function() {
                               $( this ).dialog( "close" );
-                              return false;
+                              $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'&lista=sim');
                             },
                             "NÂO": function() {
                               $( this ).dialog( "close" );

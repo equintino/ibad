@@ -169,6 +169,7 @@
    include '../config/Config.php';
    include '../model/Model.php';
    include '../mapping/modelMapper.php';
+   //print_r([$_POST,$_GET]);die;
     if(array_key_exists('id',$_GET)){
         $id=$_GET['id'];
     }else{

@@ -77,9 +77,26 @@
         })
         $('.certificadoVerso').append('<img width=700px src="../web/img/'+batizado+'Beca.jpg" />')
         $('.certificadoVerso').append('<img src="../web/img/certificado (ATRAS)branco.png" />')
-        
         if(act=='carteirinha'){
-            $('.carteirinha').append('<img src="../web/img/carteirinha.png" height="300px" />')
+        //alert('oi');
+            $('.carteirinha table').css({
+                //border: 'solid green',
+                margin: 'auto',
+                width: '600px',
+                background: 'white'
+            })
+            $('.carteirinha').css({
+                height: '600px',                
+                overflow: 'scroll',
+            })
+            $('caption').css({
+                fontSize: '40px',
+                transform: 'caption'
+            })
+            $('th, td').css({
+                fontSize: '30px'
+            })
+            /*$('.carteirinha').append('<img src="../web/img/carteirinha.png" height="300px" />')
             $('.carteirinha img').css({
                 position: 'absolute',
                 left: '15%',
@@ -190,7 +207,7 @@
                 fontFamily: 'sans',
                 fontWeight: '900',
                 color: '#870000'
-            })
+            })*/
        }
         $('.certificadoVerso img').wrap('<div class=beca></div>')
         $('.beca').css({
@@ -218,6 +235,16 @@
         $('.certificado, certificadoVerso').fadeIn(200);       
         $('#certificado').click(function(){
             if(act=='carteirinha'){
+                //alert('oi');
+                /*for(var i;i > $(':checkbox').length;i++){
+                    alert($(':checkbox')[0].checked(false));die;
+                }*/
+                var ids = [];
+                //alert(arr);
+                $(':checkbox:checked').each(function(i){
+                    ids.push($(this).attr('name'));
+                })
+                    //alert(arr);
                 var link = "../web/carteirinha.php?ids="+ids+"&act="+act+"";
                window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740'); 
             }else{
@@ -245,23 +272,20 @@
     </div>
     <div class="msg"></div>
 <?php elseif($act=='carteirinha'): ?>
+    <?php $ident=explode(',',$ids); ?>
     <div class="carteirinha">
-        <div class="foto1"></div>
-        <div class="nome1"></div>
-        <div class="pai1"></div>
-        <div class="mae1"></div>
-        <div class="dt_nascimento1"></div>
-        <div class="estcivil1"></div>
-        <div class="dt_ingresso1"></div>
-        <div class="dt_batismo1"></div>
-        <div class="funcao1"></div>
-        <div class="rg1"></div>
-        <div class="endereco1"></div>
-        <div class="ano1"></div>    
-        <div class="ano2"></div>   
-        <div class="ano3"></div>   
-        <div class="ano4"></div>   
-        <div class="ano5"></div>      
+        <table border="1" cellspacing="0" cellpadding="5">
+            <caption>Selecione os membros para emissão das carteirinhas:</caption>
+            <tr><th colspan="2">MEMBROS</th><th>SELECIONE</th></tr>
+            <?php foreach($model as $lista){ ?>
+            <tr><td align="center"><img src="<?= $lista->getfoto() ?>" height="60px"/></td><td align="center"><?= mb_strtoupper($lista->getnome(),'utf-8') ?></td><td align="center"><input type="checkbox" name="<?= $lista->getid() ?>" 
+        <?php 
+           if(in_array($lista->getid(),$ident)) echo "checked" 
+        ?> /></td></tr>
+            <?php 
+                } 
+            ?>
+        </table>
     </div>
     <div class="msg"></div>
 <?php endif; ?>
