@@ -14,38 +14,31 @@
           visibility: hidden;
         }
     }
+    .foto img{
+        position: absolute;
+        margin: -357px 12px;
+        z-index: -1;
+    }
+    .nome{
+        position: absolute;
+        z-index: 1;
+        margin: -227px 92px;
+        width: 400px;
+    }
 </style>
 <script>
     $(document).ready(function(){
-        //alert(ids);
-        //x=1;
-        //ids=ids.split(',');
-        //var top='0';
-        //for(var x=1;x < 2;x++){
-            //top=parseInt(top)+parseInt(10);
-            //if(x==2){
-            //$('.carteirinha').append('<img src="../web/img/carteirinha.png" height="360px" />');
-        //$('.carteirinha img').css({
-            //position: 'absolute',
-            //left: '5px',
-            //marginTop: '0px'
-            //top: top+'px',
-        //})
-        //}die;
-            //$('.foto1').append('<img src="'+foto1+'" height="125px" width="90px" />')
-        $('.foto img').css({
+        /*$('.foto img').css({
             position: 'absolute',
             margin: '-357px 12px',
             zIndex: -1
         })
-        //}
-    //}
         $('.nome').css({
             position: 'absolute',
             zIndex: '1',
             margin: '-227px 92px',
             width: '400px'
-        })
+        })*/
         $('.pai').css({
             position: 'absolute',
             zIndex: '1',
@@ -158,38 +151,41 @@
         $('#btnPrint').click(function(){
             window.print();
         })
+        var batizado=null;var id=null;var nome=null;var pai=null;var mae=null;
     })
     </script>
+    <?php
+        include '../validacao/ModelValidador.php';
+        include '../dao/ModelSearchCriteria.php';
+        include '../dao/dao.php';
+        include '../config/Config.php';
+        include '../model/Model.php';
+        include '../mapping/modelMapper.php';
+         if(array_key_exists('id',$_GET)){
+             $id=$_GET['id'];
+         }else{
+             $id=null;
+         }
+         if(array_key_exists('ids',$_GET)){
+             $ids=$_GET['ids'];
+         }else{
+             $ids=null;
+         }
+         $act=$_GET['act'];
+
+         $dao = new Dao();
+         $search = new ModelSearchCriteria();
+         $search->settabela('lt_membros');
+         $ano=(date('Y'));
+
+         $ids=explode(',',$_GET['ids']);
+         $x=1;        
+    ?>
 </head>
 <body>
+<div class="conteudo" id="printable">
 <?php
-   include '../validacao/ModelValidador.php';
-   include '../dao/ModelSearchCriteria.php';
-   include '../dao/dao.php';
-   include '../config/Config.php';
-   include '../model/Model.php';
-   include '../mapping/modelMapper.php';
-   //print_r([$_POST,$_GET]);die;
-    if(array_key_exists('id',$_GET)){
-        $id=$_GET['id'];
-    }else{
-        $id=null;
-    }
-    if(array_key_exists('ids',$_GET)){
-        $ids=$_GET['ids'];
-    }else{
-        $ids=null;
-    }
-    $act=$_GET['act'];
-    
-    $dao = new Dao();
-    $search = new ModelSearchCriteria();
-    $search->settabela('lt_membros');
-    $ano=(date('Y'));
-    
-    $ids=explode(',',$_GET['ids']);
-    $x=1;
-    foreach($ids as $id){           
+    foreach($ids as $id){          
         $search->setid($id);
         $model=$dao->encontrePorId($search);   
         
@@ -221,33 +217,8 @@
             }
         }
         $endereco .=ModelValidador::iniciaisMaiusculas($bairro).'/'.$model->getestado();
-        /*
-        echo '<script>
-                var act="'.$act.'";
-                var ids="'.$_GET['ids'].'";
-                var foto1="'.$model->getfoto().'";
-                var nome1="'.ModelValidador::iniciaisMaiusculas($model->getnome(),"nome").'";
-                var pai1="'.ModelValidador::iniciaisMaiusculas($model->getpai(),"carteirinha").'";
-                var mae1="'.ModelValidador::iniciaisMaiusculas($model->getmae(),"carteirinha").'";
-                var dt_nascimento1="'.$dt_nascimento1.'";
-                var estcivil1="'.ModelValidador::iniciaisMaiusculas($model->getestcivil()).'";
-                var dt_ingresso1="'.$dt_ingresso1.'";
-                var dt_batismo1="'.$dt_batismo1.'";
-                var funcao1="'.$funcao.'";
-                var rg1="'.$rg.'";
-                var endereco1="'.$endereco.'";
-                var ano1="'.$ano.'";
-                var ano2=parseInt(ano1)+1;
-                var ano3=parseInt(ano1)+2;
-                var ano4=parseInt(ano1)+3;
-                var ano5=parseInt(ano1)+4;
-
-             </script>';*/
-        echo '<script>var batizado=null;var id=null;var nome=null;var pai=null;var mae=null;
-         </script>';
-?>
-<div class="conteudo" id="printable">
-    <div class="carteirinha">     
+?>   
+    <div class="carteirinha">
         <img src="../web/img/carteirinha.png" height="360px" />
         <div class="foto"><img src="<?= $model->getfoto() ?>" height="120px" width="90px" /></div>
         <div class="nome"><?= ModelValidador::iniciaisMaiusculas($model->getnome(),'nome') ?></div>
@@ -264,17 +235,12 @@
         <div class="ano2"><?= $ano+1 ?></div>   
         <div class="ano3"><?= $ano+2 ?></div>   
         <div class="ano4"><?= $ano+3 ?></div>   
-        <div class="ano5"><?= $ano+4 ?></div>      
+        <div class="ano5"><?= $ano+4 ?></div>  
     </div>
-</div>
-    <script>var x=<?= $x ?>;</script>
 <?php
-    /*if($x==2){
-        die;
-    }*/
-    //$x++;
   } 
-?>
+?>    
+</div>
     <button id="btnPrint" class="noprint">Imprimir</button>
 </body>
 </html>

@@ -37,34 +37,7 @@ $(document).ready(function() {
                 $(location).attr('href','index.php?pagina=relMensal&mes='+resposta+'&act=rel');
             }
           })           
-      $('#tipo').hide();
-      $('#movimentacao').change(function(){
-         var mov=$('#movimentacao').val();
-         if(mov=='entrada'){
-            $('#tipo').show();
-         }else{
-            $('#tipo').hide();
-         }
-      })
-      $('#tipo').click(function(){
-         var x=$("input:checked").val();
-         if(x=='oferta'){
-            $('#descricao')
-               .text('OFERTA');
-            $('#descricao').val('OFERTA');
-         }else if(x=='dizimo'){
-            var y = membros;
-            y = (y.split(','));
-            var b='<select name=descricao>'; 
-            var c;
-               for(i=0;i<(y.length);i++){
-                  c +='<option value=\''+y[i]+'\'>'+y[i]+'</option>';
-               } 
-            var d='</select>';
-            $('#descricao')
-               .html(b+c+d);
-         }
-      }) 
+      
       $('#conclui').click(function(){
         var mesAno=$('input[name="mesAno"]').val();
         fecha = confirm('Deseja realmente fechar o relatório?');

@@ -51,13 +51,23 @@
      }
   }
   $model->settabela($ano);
+  if($_FILES['comprovante']['name']){
+     $target_dir = "../web/documentos/comprovantes/";
+     $target_file = $target_dir.$_POST['dia'].  ModelValidador::numeroMes($_POST['mes']).$_POST['ano'].'_'.basename($_FILES['comprovante']['name']);
+     if (move_uploaded_file($_FILES["comprovante"]["tmp_name"], $target_file)){
+         echo 'Arquivo salvo.';
+        $model->setcomprovante($target_file);
+     }else{
+         echo 'Erro ao salvar arquivo.';
+     }
+  }
   if($act == 'cad'){
       if($_FILES['foto']['name'] == null){
            $foto=$_POST['foto'];
       }else{
      ////// enviando arquivo /////////
 	$target_dir = "../web/imagens/fotos/";
-            $target_file = $target_dir . basename($_FILES["foto"]["name"]);
+        $target_file = $target_dir . basename($_FILES["foto"]["name"]);
         
 	$uploadOk = 1;
 

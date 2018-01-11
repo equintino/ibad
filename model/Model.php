@@ -45,6 +45,7 @@
  private $naturalde;
  private $foto;
  private $desc;
+ private $comprovante;
  public function getid(){
 	return $this->id;
  }
@@ -314,5 +315,11 @@
  }
  public function setdesc($desc ){
 	$this->desc=$desc;
+ }
+ public function getcomprovante(){
+	return $this->comprovante;
+ }
+ public function setcomprovante($comprovante){
+	$this->comprovante=$comprovante;
  }
  }

@@ -360,4 +360,12 @@
           $this->desc = $desc;
           return $this;
       }
+   private $comprovante;
+       public function getcomprovante(){
+        return $this->$comprovante;
+      }
+      public function setcomprovante($comprovante){
+          $this->desc = $comprovante;
+          return $this;
+      }
 }
