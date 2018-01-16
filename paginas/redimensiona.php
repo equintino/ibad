@@ -30,10 +30,8 @@ class Image {
     }   
     /* Salva imagem que está na memória para arquivo */
     public function saveImage($filename, $quality = '100'){
-        //echo $filename;
         $ext = strtolower(strchr($filename, '.'));
         $ext = substr($filename,-4,4);
-        //echo $ext;die;
         
         switch ($ext){
             case '.png':

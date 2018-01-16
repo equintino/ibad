@@ -2,9 +2,7 @@
     #tipo{
        display: none;
     }
-    table{
-        //position: absolute;
-        //top: 10px;
+    #mov{
         width: 560px;
         margin: 20px auto;
         background: rgba(0, 0, 0, 0.2);
@@ -14,9 +12,21 @@
     caption{
         font-size: 20px;
     }
+    .rel{
+        width: 560px;
+    }
+    /*tr:nth-child(even) {background: gray}
+    tr:nth-child(odd) {background: #FFF}*/
 </style>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function(){   
+        
+        var palavras = new Array('SALDO','TOTAIS');
+        $.each(palavras, function(index, value){
+           $('tr:contains('+value+')').css('background','darkgray')
+        })
+        $('.rel tr:even').css('background','darkgray')
+        
         $('#tipo').hide();
         $('#comprovante').hide();
         $('#movimentacao').change(function(){
@@ -71,14 +81,25 @@
         }) 
         $(':file').change(function(){
             var ext=$(this).val().split('.');
-            if(ext[1] != 'pdf'){
-                alert('Selecione somente arquivo em pdf.');
+            if(ext[1] != 'jpg'){
+                alert('Selecione somente arquivo em jpg.');
                 $(this).val(null)
             }
         })
         if(act=='cad'){
             $('.imprime').hide()
         }
+        $('#comp').mouseover(function(){
+            $(this).css({
+                cursor: 'pointer'
+            })
+        })
+        $('#comp a').click(function(){
+            if(!$(this).attr('href')){
+                alert('Não existe comprovante.');
+                return false;
+            }
+        })
     })
 </script>
 <?php
@@ -127,7 +148,7 @@
                      </script>';               
          ?>
          <form enctype="multipart/form-data" class="font_1" id="cadastro" action="../paginas/add.php?act=rel" method="POST" >
-         <table class="notprint">
+         <table class="notprint" id="mov">
                  <caption>MOVIMENTO DO MÊS DE <?= mb_strtoupper($mes,'UTF-8')?> DE <?= $ano ?></caption>
                  <tr><td align="right">DIA: </td><td><input autofocus required type="text" name="dia" size="1" maxlength="2"/></td></tr>
                  <tr>
@@ -196,8 +217,7 @@
           ?>
        <div class="rel" >
          <table border="1" cellspacing="0" class="rel">
-             <tr><th colspan="<?= count($variaveis) ?>2" align="center">MOVIMENTO FINANCEIRO DO MÊS - <?= mb_strtoupper($mes,'UTF-8').'('.$ano.')'; ?></th>
-             </tr>
+             <tr><th colspan="<?= count($variaveis) ?>2" align="center">MOVIMENTO FINANCEIRO DO MÊS - <?= mb_strtoupper($mes,'UTF-8').'('.$ano.')'; ?></th></tr>
              <tr>
                  <?php 
                     foreach($variaveis as $variavel){
@@ -222,30 +242,75 @@
                      <?php 
                        echo '<tr><td align=center>01</td><td>SALDO ANTERIOR</td><td align=center></td><td align=center></td><td align=center></td><td align=right>'.number_format($saldo,'2',',','.').'</td></tr>';
                        $resumo=array();
+                       $nomesDupl=array();
+                       $nomesdiz=array();
+                       foreach($relatorios as $dizimistas){
+                           if($dizimistas->getdiz_ofe()=='diz'){
+                                if(array_key_exists($dizimistas->getdescricao(), $nomesdiz)){
+                                    $nomesdiz[$dizimistas->getdescricao()]=$nomesdiz[$dizimistas->getdescricao()]+$dizimistas->getentrada();
+                                    $dataEntrega[$dizimistas->getdescricao()]=$dizimistas->getdt();
+                                    if(!in_array($dizimistas->getdescricao(), $nomesDupl))
+                                    $nomesDupl[]=$dizimistas->getdescricao();
+                                }else{
+                                    $nomesdiz[$dizimistas->getdescricao()]=$dizimistas->getentrada();
+                                }
+                           }
+                           $nomesD=array_unique($nomesDupl);
+                       }
                        foreach($relatorios as $relatorio){
-                         echo '<tr>';
+                         echo '<tr><tr></tr>';
                           foreach($variaveis as $item){
                            $getnome="get$item";
-                             if($relatorio->$getnome() != 0 && is_numeric($relatorio->$getnome())){
-                               if($item == 'mes'){  
-                                  echo '<td align=center>';
-                                  echo $relatorio->$getnome(); 
-                               }else{                                 
-                                  echo '<td align=right>';
-                                  echo number_format($relatorio->$getnome(),2,',','.');
-                               }
-                             }elseif(!is_numeric($relatorio->$getnome()) && $relatorio->$getnome() != $relatorio->getdescricao()){
-                               if($relatorio->$getnome() == $relatorio->getdiz_ofe()){
-                                 echo '<td align=center>';
-                                   if($relatorio->getdiz_ofe()=='diz'){
-                                      echo 'DIZIMO';
-                                   }elseif($relatorio->getdiz_ofe()=='ofe'){
-                                      echo 'OFERTA';
-                                   }
-                               }else{
-                                echo '<td align=center>';
-                                  echo substr($relatorio->$getnome(),0,2);
-                               }
+                             if(($relatorio->$getnome() != 0 && is_numeric($relatorio->$getnome()))||$item == 'dt'){
+                                 if(!in_array($relatorio->getdescricao(),$nomesDupl)){
+                                    if($item == 'dt'){  
+                                       echo '<td align=center>';
+                                       echo substr($relatorio->$getnome(),-2,2); 
+                                    }else{                                 
+                                        if($relatorio->getsaida()){
+                                            echo '<td id="comp" align=right>';
+                                            echo '<a title="Clique para ver comprovante" href="'.$relatorio->getcomprovante().'" target="_blank">';
+                                                echo number_format($relatorio->$getnome(),2,',','.');
+                                            echo '</a>';
+                                        }else{
+                                            echo '<td align=right>';
+                                            echo number_format($relatorio->$getnome(),2,',','.');
+                                        }
+                                    }
+                                 }
+                             }elseif(!is_numeric($relatorio->$getnome()) && $relatorio->getdiz_ofe()){
+                               if(!in_array($relatorio->getdescricao(),$nomesDupl)){  
+                                    if($relatorio->$getnome() == $relatorio->getdiz_ofe()){
+                                      echo '<td align=center>';
+                                        if($relatorio->getdiz_ofe()=='diz'){
+                                           echo 'DIZIMO';
+                                        }elseif($relatorio->getdiz_ofe()=='ofe'){
+                                           echo 'OFERTA';
+                                        }
+                                    }elseif($relatorio->$getnome() == $relatorio->getdt()){
+                                         echo '<td align=center>';
+                                         echo substr($relatorio->$getnome(),8,2);
+                                    }else{
+                                        echo '<td>';
+                                           echo mb_strtoupper($relatorio->$getnome(),'utf-8');
+                                    }
+                                }else{
+                                    if(in_array($relatorio->getdt(),$dataEntrega)){
+                                        if(!isset($x))$x=0;
+                                        $valorEntregue=$dataEntrega[$nomesD[$x]];
+                                        if($nomesD[$x]){
+                                            if(!isset($y)){$y=0;}
+                                            if(!isset($z)){$z=0;}
+                                            if($x!=$y){
+                                                echo '<td align="center">'.substr($dataEntrega[$nomesD[$x]],-2,2).'</td><td>'.$nomesD[$x].'</td><td align="right">'.number_format($nomesdiz[$nomesD[$x]],2,',','.').'</td><td></td><td align="center">DIZIMO</td>';
+                                                $y=$x;
+                                            }elseif($z==0){
+                                                echo '<td align="center">'.substr($dataEntrega[$nomesD[$x]],-2,2).'</td><td>'.mb_strtoupper($nomesD[$x],'utf-8').'</td><td align="right">'.number_format($nomesdiz[$nomesD[$x]],2,',','.').'</td><td></td><td align="center">DIZIMO</td>';
+                                                $z++;
+                                            }
+                                        }
+                                    }
+                                }
                              }elseif($relatorio->$getnome() == $relatorio->getdescricao()){
                                 echo '<td align=left>';
                                 echo strtoupper($relatorio->$getnome());
@@ -255,16 +320,23 @@
                              echo '</td>';
                           }
                          if($relatorio->getentrada()!=0){
-                            $saldo=$saldo+$relatorio->getentrada();
-                            $somaEntrada=$somaEntrada+$relatorio->getentrada();
+                             if(!in_array($relatorio->getdescricao(),$nomesD)){
+                                $saldo=$saldo+$relatorio->getentrada();
+                             }elseif(@in_array($nomesD[$x],$nomesD)){
+                                 $saldo=$saldo+$nomesdiz[$nomesD[$x]];
+                                 unset($nomesD[$x]);
+                                 $x++;
+                             }
+                                $somaEntrada=$somaEntrada+$relatorio->getentrada();
                          }elseif($relatorio->getsaida()!=0){
                             $saldo=$saldo-$relatorio->getsaida();
                             $somaSaida=$somaSaida+$relatorio->getsaida();
                          }
                             $resumo[]=array('descricao'=>$relatorio->getdescricao(),'saida'=>$relatorio->getsaida(),'entrada'=>$relatorio->getentrada());
-                         echo "<td align=right>".number_format($saldo,'2',',','.')."</td>";
+                         if(!in_array($relatorio->getdescricao(),$nomesD))
+                            echo "<td align=right>".number_format($saldo,'2',',','.')."</td>";
                          echo '</tr>';
-                       } 
+                       }
                      ?>   
          </table>
        </div>

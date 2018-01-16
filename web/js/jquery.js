@@ -27,16 +27,16 @@ $(document).ready(function() {
          alert("Selecione somente imagem");
       }
    });       
-          $('#relatorio').click(function(){
-            var resposta=prompt('Quaal o número do mês/ano?');
-            if(resposta==''){
-               alert('Insira o mês/ano.');
-               var resposta=prompt('Quaal o número do mês/ano?');
-            }
-            if(resposta){
-                $(location).attr('href','index.php?pagina=relMensal&mes='+resposta+'&act=rel');
-            }
-          })           
+      $('#relatorio').click(function(){
+        var resposta=prompt('Quaal o número do mês/ano?');
+        if(resposta==''){
+           alert('Insira o mês/ano.');
+           var resposta=prompt('Quaal o número do mês/ano?');
+        }
+        if(resposta){
+            $(location).attr('href','index.php?pagina=relMensal&mes='+resposta+'&act=rel');
+        }
+      })           
       
       $('#conclui').click(function(){
         var mesAno=$('input[name="mesAno"]').val();
@@ -51,16 +51,16 @@ $(document).ready(function() {
                 var $w = $(w.document.body);
                 $w.html();
       })
-         $(':input[name=dia]').click(function(){
-            $(this).datepicker({
-               dateFormat: 'dd',
-               dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-               dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-               dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-               monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-               monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-           });           
-         })
+        $(':input[name=dia]').click(function(){
+           $(this).datepicker({
+              dateFormat: 'dd',
+              dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+              dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+              dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+              monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+              monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+          });           
+        })
          $('#sexo').css({
             'background': '#ccc'
          });
@@ -74,12 +74,7 @@ $(document).ready(function() {
                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
            });           
          })
-      $('.lista span').addClass('fotoMembros');     
-      var palavras = new Array('SALDO','TOTAIS');
-      $.each(palavras, function(index, value){
-         $('tr:contains('+value+')').css('background','darkgray');
-      })
-      $('.rel tr:even').css('background','darkgray');
-});
+      $('.lista span').addClass('fotoMembros');
+})
 
 
