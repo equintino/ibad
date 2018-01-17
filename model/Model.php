@@ -46,6 +46,7 @@
  private $foto;
  private $desc;
  private $comprovante;
+ private $certificado;
  public function getid(){
 	return $this->id;
  }
@@ -321,5 +322,11 @@
  }
  public function setcomprovante($comprovante){
 	$this->comprovante=$comprovante;
+ }
+ public function getcertificado(){
+	return $this->certificado;
+ }
+ public function setcertificado($certificado){
+	$this->certificado=$certificado;
  }
  }

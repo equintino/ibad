@@ -139,5 +139,8 @@
 	if (array_key_exists('comprovante', $properties)){
 	  $model->setcomprovante($properties['comprovante']);
 	}
+	if (array_key_exists('certificado', $properties)){
+	  $model->setcertificado($properties['certificado']);
+	}
   } 
  }

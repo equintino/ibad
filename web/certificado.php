@@ -131,12 +131,18 @@
 <div class="conteudo" id="printable">
 <?php if($act=='cert'): ?>    
     <div class="certificado">
+    <?php 
+        if(mb_strtoupper($model->getigbatismo(),'utf-8') != 'I. B. DO AMOR DE DEUS'){
+            echo '<img src="../web/'.$model->getcertificado().'" />';
+        }else{
+    ?>
         <img title="Clique para ver o verso." src="../web/img/certificado Frente.png" />
         <div class="membro"><?= $nome ?></div>
         <div class="pai"><?= $pai ?></div>
         <div class="mae"><?= $mae ?></div>
         <div class="dt_batismo"><?= $dd.$esp.$mm.$esp.$aa ?></div>
     </div>
+        <?php } ?>
 <?php elseif($act=='verso'): ?>
     <div class="certificadoVerso">
         <div></div>

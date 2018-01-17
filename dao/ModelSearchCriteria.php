@@ -365,7 +365,15 @@
         return $this->$comprovante;
       }
       public function setcomprovante($comprovante){
-          $this->desc = $comprovante;
+          $this->comprovante = $comprovante;
+          return $this;
+      }
+   private $certificado;
+       public function getcertificado(){
+        return $this->$certificado;
+      }
+      public function setcertificado($certificado){
+          $this->certificado = $certificado;
           return $this;
       }
 }

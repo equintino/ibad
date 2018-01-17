@@ -51,7 +51,7 @@
      }
   }
   $model->settabela($ano);
-  if($_FILES['comprovante']['name']){
+  if(@$_FILES['comprovante']['name']){
      $target_dir = "../web/documentos/comprovantes/";
      $target_file = $target_dir.$_POST['dia'].  ModelValidador::numeroMes($_POST['mes']).$_POST['ano'].'_'.basename($_FILES['comprovante']['name']);
      if (move_uploaded_file($_FILES["comprovante"]["tmp_name"], $target_file)){
@@ -62,9 +62,21 @@
      }
   }
   if($act == 'cad'){
-      if($_FILES['foto']['name'] == null){
+      if(!$_FILES['foto']['name'] && !$_FILES['certificado']['name']){
            $foto=$_POST['foto'];
-      }else{
+      }elseif($_FILES['certificado']['name']){
+            $foto=$_POST['foto'];
+            $target_dir = "../web/documentos/certificados/";
+            $target_file = $target_dir . basename($_FILES["certificado"]["name"]);
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                valida_cookies::popup("Arquivo já existe.");
+                $uploadOk = 0;
+            }
+            $imagem = new Image();
+            $imagem->resize($_FILES["certificado"]["tmp_name"], 250, 350);
+            $imagem->saveImage("$target_file");
+      }elseif($_FILES['foto']['name']){
      ////// enviando arquivo /////////
 	$target_dir = "../web/imagens/fotos/";
         $target_file = $target_dir . basename($_FILES["foto"]["name"]);
@@ -118,7 +130,9 @@
 	///// /////// //////// //////
 	$foto = str_replace('../web/','',$target_file);
       }
-        $model->setfoto($foto); 
+      //print_r($_FILES);
+        $model->setfoto($foto);
+        $model->setcertificado(str_replace('../web/','',$target_file));
      $model->setexcluido(0);
      $dao->grava($model);
      }
