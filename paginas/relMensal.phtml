@@ -111,7 +111,11 @@
     $search->settabela('saldo');
     foreach($dao->encontre($search) as $tudo);
     if($act=='cad'){
-      $mes = ModelValidador::nomeMes(ModelValidador::numeroMes($tudo->getmes())+1);
+        if($tudo->getmes()=='dezembro'){
+            $mes='janeiro';
+        }else{
+            $mes = ModelValidador::nomeMes(ModelValidador::numeroMes($tudo->getmes())+1);
+        }
       $ano = $tudo->getano();
     }else{
       $mes=ModelValidador::nomeMes((substr($_GET['mes'],0,2)));
