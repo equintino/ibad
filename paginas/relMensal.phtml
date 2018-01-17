@@ -271,7 +271,7 @@
                                        echo '<td align=center>';
                                        echo substr($relatorio->$getnome(),-2,2); 
                                     }else{                                 
-                                        if($relatorio->getsaida()){
+                                        if($relatorio->getsaida() == $relatorio->$getnome()){
                                             echo '<td id="comp" align=right>';
                                             echo '<a title="Clique para ver comprovante" href="'.$relatorio->getcomprovante().'" target="_blank">';
                                                 echo number_format($relatorio->$getnome(),2,',','.');
