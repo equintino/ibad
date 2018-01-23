@@ -1,0 +1,4 @@
+<?php
+    $dir='../web/documentos';
+?>
+

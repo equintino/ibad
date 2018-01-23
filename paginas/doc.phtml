@@ -1,0 +1,57 @@
+<script>
+    $(document).ready(function(){
+       $('.arquivos a').click(function(){
+            var file=$(this).attr('title');
+            var arquivo='documentos/'+file;
+            $(this).attr('href',arquivo).attr('target','_blank');         
+       })
+    })
+</script>
+<style>
+    .arquivos{
+        width: 300px;
+        margin: 100px auto;
+    }
+    .documentos{
+        background: white;
+    }
+    span{
+        font-size: 20px;
+    }
+    .arq{
+        background: white;
+        border: 1px solid gray;
+        padding: 10px;
+    }
+    h2{
+        text-shadow: 1px 1px 1px blue;
+    }
+</style>
+<div class="conteudo" >
+    <div class="arquivos">
+        <h2>DOCUMENTOS</h2>
+        <div class="arq">
+<?php
+    foreach(scandir($dir) as $files){
+        if($files != '.' && $files != '..'){
+            if('pdf'==substr($files,-3,3)){
+                echo '<a href="#" title="'.$files.'"><img height=15px src="imagens/arquivo.png" /> <span>'.$files.'</span></a><br>';
+            }
+        }
+    }
+    echo '</div>';
+    echo '<br><br>';
+    echo '<h2>DIRETÓRIOS</h2>';
+    echo '<div class=arq>';
+    foreach(scandir($dir) as $files){
+        if($files != '.' && $files != '..'){
+            if('pdf' != substr($files,-3,3)){
+                echo '<a href="#" title="'.$files.'"><img height=15px src="imagens/pasta.png" /><span> '.$files.'</span></a><br>';
+            }
+        }
+    }
+    echo '</div>';
+?>
+    </div>
+</div>
+

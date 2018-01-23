@@ -125,7 +125,7 @@
              <!--<button>-->
                    <?php 
                      $mes_=  ModelValidador::nomeMes(date('m'));
-                     $menu=array('home'=>'Home','cad'=>'Cadastro de Membros','lista'=>'Ficha de Membros','relatorio'=>'Relatórios','relMensal_'=>'Movimentação');    
+                     $menu=array('home'=>'Home','doc'=>'Documentos','cad'=>'Cadastro de Membros','lista'=>'Ficha de Membros','relatorio'=>'Relatórios','relMensal_'=>'Movimentação');    
                      foreach($menu as $key => $item){
                        if($item == 'Movimentação'){
                           echo '<li><a href="index.php?pagina=relMensal&&act=cad" id="movimento" >'.$item.'</a></li>';

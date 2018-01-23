@@ -28,17 +28,6 @@
 </style>
 <script>
     $(document).ready(function(){
-        /*$('.foto img').css({
-            position: 'absolute',
-            margin: '-357px 12px',
-            zIndex: -1
-        })
-        $('.nome').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-227px 92px',
-            width: '400px'
-        })*/
         $('.pai').css({
             position: 'absolute',
             zIndex: '1',
@@ -49,9 +38,7 @@
             position: 'absolute',
             zIndex: '1',
             margin: '-190px 296px',
-            width: '210px',
-            //fontSize: '31px',
-            //border: 'solid red'
+            width: '210px'
         })
         $('.dt_nascimento').css({
             position: 'absolute',
@@ -82,8 +69,7 @@
             position: 'absolute',
             zIndex: '1',
             margin: '-44px 92px',
-            width: '160px',
-            //textAlign: 'center'
+            width: '160px'
         })
         $('.rg').css({
             position: 'absolute',
@@ -101,7 +87,6 @@
         $('.ano1').css({
             position: 'absolute',
             zIndex: '1',
-            //width: '310px',
             margin: '-194px 560px',
             fontSize: '20px',
             fontFamily: 'sans',
@@ -111,7 +96,6 @@
         $('.ano2').css({
             position: 'absolute',
             zIndex: '1',
-            //width: '310px',
             margin: '-194px 650px',
             fontSize: '20px',
             fontFamily: 'sans',
@@ -121,7 +105,6 @@
         $('.ano3').css({
             position: 'absolute',
             zIndex: '1',
-            //width: '310px',
             margin: '-194px 740px',
             fontSize: '20px',
             fontFamily: 'sans',
@@ -131,7 +114,6 @@
         $('.ano4').css({
             position: 'absolute',
             zIndex: '1',
-            //width: '310px',
             margin: '-194px 830px',
             fontSize: '20px',
             fontFamily: 'sans',
@@ -141,7 +123,6 @@
         $('.ano5').css({
             position: 'absolute',
             zIndex: '1',
-            //width: '310px',
             margin: '-194px 918px',
             fontSize: '20px',
             fontFamily: 'sans',
@@ -196,9 +177,9 @@
         }else{
             $rg=$model->getrg();
         }
-        
+        $membroDesde=ModelValidador::membroDesde($model->getdt_ingresso());
         $dt_nascimento=substr($model->getdt_nascimento(),-2,2).' / '.substr($model->getdt_nascimento(),-5,2).' / '.substr($model->getdt_nascimento(),0,4);
-        $dt_ingresso=substr($model->getdt_ingresso(),-2,2).' / '.substr($model->getdt_ingresso(),-5,2).' / '.substr($model->getdt_ingresso(),0,4);
+        $dt_ingresso=substr($membroDesde,0,2).' / '.substr($membroDesde,3,2).' / '.substr($membroDesde,-4,4);
         $dt_batismo=substr($model->getdt_batismo(),-2,2).' / '.substr($model->getdt_batismo(),-5,2).' / '.substr($model->getdt_batismo(),0,4);
         $endereco=ModelValidador::logradouro($model->gettipo()).' '.ModelValidador::iniciaisMaiusculas($model->getendereco()).', '.$model->getnumero().' - ';
         if($model->getcomplemento()){

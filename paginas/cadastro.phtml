@@ -30,7 +30,7 @@
           $.each($(":checkbox"), function(){
                 if($(this).is(":checked")){
                     ids.push($(this).attr('name'));
-                    if(x==0){                        
+                    //if(x==0){                        
                         $( "#dialog-confirm" ).dialog({
                           resizable: false,
                           modal: true,
@@ -40,13 +40,14 @@
                               $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'&lista=sim');
                             },
                             "NÂO": function() {
-                              $( this ).dialog( "close" );
-                              $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'');
-                              return true;
+                                $( this ).dialog( "close" );
+                                var link = "../web/carteirinha.php?ids="+ids+"&act=barteirinha";
+                                window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
+                              return false;
                             }
                           }
                         })
-                    }
+                    //}
                 }
           })
             if(y==0){
@@ -163,7 +164,7 @@
                        }
                        if($item->getdt_batismo() && $item->getdt_batismo()!='0000-00-00'){
                         echo '<script> var id='.$item->getid().'; </script>';
-                        echo '<tr><td class="nome col1">'.$titulos[5].' </td><td title="Clique para ver o certificado." class="dados col2, certBatismo" name="'.$item->getid().'">&nbsp'.ModelValidador::data($item->getdt_batismo()).'</td><td class="nome3 col3">'.$titulos[9].'</td><td class="dados col4">&nbsp'.$item->getigbatismo().'</td><td class="nome2 col5">'.$titulos[6].' </td><td class="dados col6">'.ModelValidador::data($item->getdt_ingresso()).'</td></tr>';
+                        echo '<tr><td class="nome col1">'.$titulos[5].' </td><td title="Clique para ver o certificado." class="dados col2, certBatismo" name="'.$item->getid().'">&nbsp'.ModelValidador::data($item->getdt_batismo()).'</td><td class="nome3 col3">'.$titulos[9].'</td><td class="dados col4">&nbsp'.$item->getigbatismo().'</td><td class="nome2 col5">'.$titulos[6].' </td><td class="dados col6">'.ModelValidador::membroDesde($item->getdt_ingresso()).'</td></tr>';
                        }
                      echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
                     }elseif($cont > $y){

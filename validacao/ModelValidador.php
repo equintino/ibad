@@ -261,5 +261,11 @@ final class ModelValidador {
         }
         return $funcao;
     }
+    public static function membroDesde($data){
+        if($data < "2014-04-07"){
+            $data='2014-04-07';
+        }
+        return self::data($data);
+    }
 }
 ?>

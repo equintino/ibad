@@ -96,118 +96,6 @@
             $('th, td').css({
                 fontSize: '30px'
             })
-            /*$('.carteirinha').append('<img src="../web/img/carteirinha.png" height="300px" />')
-            $('.carteirinha img').css({
-                position: 'absolute',
-                left: '15%',
-                top: '9%',
-            })
-            $('.foto1').append('<img src="'+foto1+'" height="100px" width="80px" />')
-            $('.foto1 img').css({
-                margin: '15px 167px'
-            })
-            $('.nome1').text(nome1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '-10px 240px'
-            })
-            $('.pai1').text(pai1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '10px 240px'
-            })
-            $('.mae1').text(mae1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '-39px 410px'
-            })
-            $('.dt_nascimento1').text(dt_nascimento1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '54px 240px'
-            })
-            $('.estcivil1').text(estcivil1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '-84px 420px'
-            })
-            $('.dt_ingresso1').text(dt_ingresso1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '97px 238px'
-            })
-            $('.dt_batismo1').text(dt_batismo1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '-126px 415px'
-            })
-            $('.funcao1').text(funcao1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '128px 260px'
-            })
-            $('.rg1').text(rg1).css({
-                position: 'relative',
-                zIndex: '1',
-                margin: '-158px 430px'
-            })
-            $('.endereco1').text(endereco1).css({
-                position: 'relative',
-                zIndex: '1',
-                width: '310px',
-                margin: '-279px 670px',
-                fontSize: '21px'
-            })
-            $('.ano1').text(ano1).css({
-                position: 'relative',
-                zIndex: '1',
-                width: '310px',
-                margin: '382px 633px',
-                fontSize: '15px',
-                fontFamily: 'sans',
-                fontWeight: '900',
-                color: '#870000'
-            })
-            $('.ano2').text(ano2).css({
-                position: 'relative',
-                zIndex: '1',
-                width: '310px',
-                margin: '-400px 705px',
-                fontSize: '15px',
-                fontFamily: 'sans',
-                fontWeight: '900',
-                color: '#870000'
-            })
-            $('.ano3').text(ano3).css({
-                position: 'relative',
-                zIndex: '1',
-                width: '310px',
-                margin: '382px 775px',
-                fontSize: '15px',
-                fontFamily: 'sans',
-                fontWeight: '900',
-                color: '#870000'
-            })
-            $('.ano4').text(ano4).css({
-                position: 'relative',
-                zIndex: '1',
-                width: '310px',
-                margin: '-400px 850px',
-                fontSize: '15px',
-                fontFamily: 'sans',
-                fontWeight: '900',
-                color: '#870000'
-            })
-            $('.ano5').text(ano5).css({
-                position: 'relative',
-                zIndex: '1',
-                width: '310px',
-                margin: '382px 925px',
-                fontSize: '15px',
-                fontFamily: 'sans',
-                fontWeight: '900',
-                color: '#870000'
-            })*/
        }
         $('.certificadoVerso img').wrap('<div class=beca></div>')
         $('.beca').css({
@@ -235,18 +123,12 @@
         $('.certificado, certificadoVerso').fadeIn(200);       
         $('#certificado').click(function(){
             if(act=='carteirinha'){
-                //alert('oi');
-                /*for(var i;i > $(':checkbox').length;i++){
-                    alert($(':checkbox')[0].checked(false));die;
-                }*/
                 var ids = [];
-                //alert(arr);
                 $(':checkbox:checked').each(function(i){
                     ids.push($(this).attr('name'));
                 })
-                    //alert(arr);
                 var link = "../web/carteirinha.php?ids="+ids+"&act="+act+"";
-               window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740'); 
+               window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
             }else{
                 var link = "../web/certificado.php?id="+id+"&act="+act+"";
                 window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
