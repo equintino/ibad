@@ -1,14 +1,6 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<style>
-    #rodape, #dialog-confirm{
-        display: none;
-    } 
-    .fotoFicha{
-        background: #ccc;
-    }
-</style> 
 <script>
    $(document).ready(function(){          
       var original=$('.foto :hidden').val();
@@ -29,8 +21,7 @@
           ids = [];
           $.each($(":checkbox"), function(){
                 if($(this).is(":checked")){
-                    ids.push($(this).attr('name'));
-                    //if(x==0){                        
+                    ids.push($(this).attr('name'));                      
                         $( "#dialog-confirm" ).dialog({
                           resizable: false,
                           modal: true,
@@ -47,13 +38,8 @@
                             }
                           }
                         })
-                    //}
                 }
           })
-            if(y==0){
-                $('.bntcart').append('<button>Imprimir</button>');
-                y=1;
-            }
                 x++;
       })
       $('.bntcart').click(function(){
@@ -70,25 +56,36 @@
               window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
           })
       })
+      $('.procura').bind('mouseover', function(){
+          $(this).css({
+              cursor: 'pointer'
+          })
+      })
+      $('.procura img').bind('click', function(){
+              alert($('.procura :input').val());
+      })
+      $('.procura').keyup(function(e){
+            var code = e.which; // recommended to use e.which, it's normalized across browsers
+            if(code==13)e.preventDefault();
+            if(code==32||code==13||code==188||code==186){
+                alert($('.procura :input').val()); 
+            } 
+      })
    })
 </script>
-
-<?php 
-    $dao=new Dao();
-    $search=new ModelSearchCriteria();
-    $search->settabela('lt_membros');
-    $search->setorder('nome');
-    $lista=$dao->encontre($search);
-    $variaveis=array('NOME COMPLETO '=>'nome','DATA DE NASCIMENTO '=>'dt_nascimento','NATURALIDADE'=>'naturalde','IDENTIDADE'=>'rg','CPF'=>'cpf','TÍTULO ELEITORAL'=>'tit','SEXO'=>'sexo','ESCOLARIDADE'=>'escolaridade','PROFISSÃO'=>'prof','NOME DO PAI'=>'pai','NOME DA MÃE'=>'mae','ESTADO CIVIL'=>'estcivil','DATA DO CASAMENTO'=>'dt_casamento','NOME DO CONJUGÊ'=>'conjuge','ENDEREÇO DE E-MAIL '=>'email','TELEFONE '=>'tel','CELULAR '=>'cel','AV/RUA/TRAV'=>'tipo','ENDEREÇO DE RESIDÊNCIA '=> 'endereco','NÚMERO'=>'numero','COMPLEMENTO'=>'complemento','BAIRRO'=>'bairro','CIDADE'=>'cidade','ESTADO'=>'estado','CEP'=>'cep','DATA DO BATISMO'=>'dt_batismo','IGREJA DO BATISMO'=>'igbatismo','IGREJA DE ORIGEM'=>'igorigem','MEMBRO DESDE'=>'dt_ingresso');
-    $act=$_GET['act'];
-    $x=$_GET['pag'];
-    $y=$x+5;
-        if($x==0){ 
-           $class='class="disabled"';
-        }else{
-           $class='title=RECUAR';
-        }
-?>
+<style>
+    #rodape, #dialog-confirm{
+        display: none;
+    } 
+    .fotoFicha{
+        background: #ccc;
+    }
+    .procura{
+        position: relative;
+        top: 3px;
+        padding-right: 5px;
+    }
+</style> 
 <div  class="conteudo" >
     <div id="dialog-confirm" title="CARTEIRINHA">Deseja Selecionar Mais Membros?</div>   
     <div class="cadastro">
@@ -96,6 +93,7 @@
                <?php                   
                   $titulos=array('Nome','E-mail','Tel.','Nascimento','Endereço','Batismo','Membro desde','Estado Civil','Conjuge','Igreja do Batismo');
                   echo '<div class=paginacao>';
+                    echo '<span class="procura"><input type="text" name="busca" /> <img src="imagens/lupa.png" height=18px title="Buscar"/></span>';
                      $pag = ($x/4)+1;
                     echo 'Páginas ';
                     echo $pag .' de ';
