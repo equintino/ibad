@@ -178,6 +178,8 @@
                  $sql="SELECT * FROM `".$search->gettabela()."` WHERE mes='".$search->getmes()."' AND excluido = '0' ";
              }elseif($search->getano()){              
                 $sql="SELECT * FROM `".$search->gettabela()."` WHERE mes='".$search->getmes()."' AND ano='".$search->getano()."' AND excluido = '0' ";
+             }elseif($search->getnome()){
+                 $sql="SELECT * FROM `".$search->gettabela()."` WHERE nome LIKE '%".$search->getnome()."%' AND excluido = '0' ";
              }else{
                  $sql="SELECT * FROM `".$search->gettabela()."` WHERE excluido = '0' ";
              }

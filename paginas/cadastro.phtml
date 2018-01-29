@@ -15,8 +15,6 @@
           width: '40px',
       });
       $(':checkbox').prop('checked',false);
-      var x = 0;
-      var y = 0;     
       $('.cart').click(function(){
           ids = [];
           $.each($(":checkbox"), function(){
@@ -28,7 +26,7 @@
                           buttons: {
                             "SIM": function() {
                               $( this ).dialog( "close" );
-                              $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'&lista=sim');
+                              $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'&lista=sim&nome='+nome+'');
                             },
                             "NÂO": function() {
                                 $( this ).dialog( "close" );
@@ -40,7 +38,6 @@
                         })
                 }
           })
-                x++;
       })
       $('.bntcart').click(function(){
           $(location).attr('href','index.php?pagina=documentos&act=carteirinha&ids='+ids+'');        
@@ -62,13 +59,19 @@
           })
       })
       $('.procura img').bind('click', function(){
-              alert($('.procura :input').val());
+          var nome=$('.procura :input').val();
+            if(nome){
+                $(location).attr('href','index.php?pagina=cadastro&act=lista&pag=0&busca=1&nome='+nome+'');
+            }
       })
       $('.procura').keyup(function(e){
             var code = e.which; // recommended to use e.which, it's normalized across browsers
             if(code==13)e.preventDefault();
-            if(code==32||code==13||code==188||code==186){
-                alert($('.procura :input').val()); 
+            if(code==13||code==188||code==186||e.keyCode==13){
+                var nome=$('.procura :input').val();
+                if(nome){
+                    $(location).attr('href','index.php?pagina=cadastro&act=lista&pag=0&busca=1&nome='+nome+'');
+                }
             } 
       })
    })
@@ -105,7 +108,12 @@
                   }else{
                      $class2='title="AVANÇAR"';
                   }
-        echo '<fieldset class=lista><legend><a href='.Utils::createLink('cadastro',array('act'=>'lista','pag'=>$x-4)).' '.$class.' ><< </a> FICHA DE MEMBROS <a href='.Utils::createLink('cadastro',array('act'=>'lista','pag'=>$x+4,'contador'=>count($lista))).' '.$class2.'> >> </a></legend>';
+        echo '<fieldset class=lista><legend><a href='.Utils::createLink('cadastro',array('act'=>'lista','pag'=>$x-4,'nome'=>$nome)).' '.$class.' ><< </a> FICHA DE MEMBROS <a href='.Utils::createLink('cadastro',array('act'=>'lista','pag'=>$x+4,'contador'=>count($lista),'nome'=>$nome)).' '.$class2.'> >> </a></legend>';
+        echo '<script>
+                if(nome==null){
+                    var nome="'.$nome.'";
+                }
+             </script>';
            echo '<table cellspacing=0 border=1>';
             echo '<tr><td colspan=7 class=divisao>&nbsp</td><tr>';
                   $cont=0;

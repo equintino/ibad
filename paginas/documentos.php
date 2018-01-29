@@ -15,6 +15,10 @@
     $search = new ModelSearchCriteria();
     $search->settabela('lt_membros');
     $search->setorder('nome');
+    if($act=='carteirinha'){
+        $nome=$_GET['nome'];
+        $search->setnome($nome);
+    }
     $model=$dao->encontre($search);    
     
     $ano=(date('Y'));
