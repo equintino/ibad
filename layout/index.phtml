@@ -18,9 +18,7 @@
     <script type="text/javascript" src="../web/js/jquery.js"></script>
     <!-- Fim Calendário -->
     <script>
-        $(document).ready(function(){
-            //$('<img src="../web/img/sair.png" title="Sair" height="28px" />').appendTo($('#sair'));
-            
+        $(document).ready(function(){            
             $('#sair img').mouseover(function(){
                 $(this).css({
                     cursor:'pointer'
@@ -91,24 +89,6 @@
         .submenu li:hover {
             background: #555;
         }
-       /* ul{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            border: solid red;
-            background: #f1f1f1;
-        }
-        .principal > li{
-            display: inline;
-            padding: 10px;
-            border: solid green;
-            float: left;
-            //height: 60px;
-        }
-        .submenu li{
-            //display: block;
-            //position: absolute;
-        }*/
     </style>
 </head>
 <body id="page">
@@ -144,6 +124,11 @@
        </div>
         <!-- content -->
         <div id="content">
+            <?php
+                if(@$_GET['index']=='sim'){
+                    include_once '../web/aniversariantes.php';
+                }
+            ?>
             <div class="wrapper">
                 <div class="col-1">
                 </div>
