@@ -59,7 +59,7 @@
           })
       })
       $('.procura img').bind('click', function(){
-          var nome=$('.procura :input').val();
+          var nome=$('.bsc').val();
             if(nome){
                 $(location).attr('href','index.php?pagina=cadastro&act=lista&pag=0&busca=1&nome='+nome+'');
             }
@@ -67,12 +67,38 @@
       $('.procura').keyup(function(e){
             var code = e.which; // recommended to use e.which, it's normalized across browsers
             if(code==13)e.preventDefault();
-            if(code==13||code==188||code==186||e.keyCode==13){
-                var nome=$('.procura :input').val();
+            if(code==13||e.keyCode==13){
+                var nome=$('.bsc').val();
                 if(nome){
                     $(location).attr('href','index.php?pagina=cadastro&act=lista&pag=0&busca=1&nome='+nome+'');
                 }
             } 
+      })
+      $('.procura').prepend('<button><span>Aniversariantes</span></button>')
+      $('.procura button').css({
+          marginRight: '5px',
+          cursor: 'pointer',
+          fontFamily: 'cursive',
+          textShadow: '4px 4px 4px black',
+          background: '#cacb8d',
+          borderRadius: '5px',
+          fontSize: '18px',
+          color: 'white'
+      })
+      $('.procura button').mousedown(function(){
+        $('.procura button span').css({
+          position: 'relative',
+          top: '-2px',
+          left: '-2px'
+        })
+        $(this).mouseup(function(){
+            $('.procura button span').css({
+                position: 'relative',
+                top: '1px',
+                left: '1px'
+            })
+            $(location).attr('href','index.php?pagina=aniversariantes')
+        })
       })
    })
 </script>
@@ -96,7 +122,7 @@
                <?php                   
                   $titulos=array('Nome','E-mail','Tel.','Nascimento','Endereço','Batismo','Membro desde','Estado Civil','Conjuge','Igreja do Batismo');
                   echo '<div class=paginacao>';
-                    echo '<span class="procura"><input type="text" name="busca" /> <img src="imagens/lupa.png" height=18px title="Buscar"/></span>';
+                    echo '<span class="procura"><input class="bsc" type="text" name="busca" /> <img src="imagens/lupa.png" height=18px title="Buscar"/></span>';
                      $pag = ($x/4)+1;
                     echo 'Páginas ';
                     echo $pag .' de ';
