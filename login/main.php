@@ -5,7 +5,9 @@
 <body>
 <?php 
 include '../validacao/valida_cookies.php';
-include_once '../web/backup.php';
+include '../dao/dao.php';
+$dao = new dao();
+$dao->backup();
 $acesso = new valida_cookies();
 @$acesso->setLogin($_POST['login']);
 @$acesso->setSenha($_POST['senha']);

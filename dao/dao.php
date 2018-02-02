@@ -4,6 +4,22 @@
    public function __destruct(){
       $this->db = null;
    }
+   public function listaTabela($banco=null){
+       $tabelas=array();
+       $config = Config::getConfig("db");
+       $banco=explode(';',$config['dsn']);
+       $banco=preg_replace('/dbname=/','',$banco[1]);
+       $chave='Tables_in_'.$banco;
+       foreach($this->query('SHOW TABLES') as $row){
+           $tabelas[]=$row[$chave];
+       }
+        return $tabelas;
+   }
+   public function backup(){
+        date_default_timezone_set('America/Sao_Paulo');
+       $data=date('dmY');
+       system('mysqldump -h localhost -u root -B ibad > "../db/ibad_'.$data.'.sql"');
+   }
    public function encontre(ModelSearchCriteria $search = null){ 
             set_time_limit(3600);
             ini_set('memory_limit', '-1');
