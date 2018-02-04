@@ -31,6 +31,8 @@
             $('#flashes').fadeOut(2000,function(){
                 $(this).hide('slow');
             })
+            //$('.menu > li a').css('color','#cc4933')
+            //alert($('.menu').css('background','red'));
         })
     </script>
     <style>
@@ -56,13 +58,14 @@
         .menu,
         .submenu {
             list-style: none;
-            background: gray;
+            background: #bd9750;
         }
         .menu a{
             text-decoration: none;
             display: block;
-            padding: 10px;
-            color: #fff;
+            padding: 8px;
+            color: white;
+            text-shadow:#000 0px 1px 0, #999 0 -1px 0;
             font-family: sans-serif;
             font-size: 14px;
             text-transform: uppercase;
@@ -85,7 +88,11 @@
             top: 89px;
         }
         .menu > li:hover{
-            background: #444;
+            background: #875a39;
+            -webkit-transition: 0.2s ease-in;
+            -moz-transition: 0.2s ease-in;
+            -o-transition: 0.2s ease-in;
+            transition: 0.2s ease-in;
         }
         .submenu li:hover {
             background: #555;
@@ -100,7 +107,7 @@
       <div id="cabecalho">
           <span class="titulo">IBAD -&nbsp</span><span class="cor_1" id="logo">Igreja Batista do Amor de Deus</span>
           <hr size="0.5" class="l1">
-        <span id="sair"><img src="../web/img/sair.png" title="Sair" height="28px" /></span>
+        <span id="sair"><img src="../web/img/sair.png" title="Sair" height="35px" /></span>
          <div class="menu" >
              <ul class="menu">
              <!--<button>-->

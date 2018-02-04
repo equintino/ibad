@@ -1,10 +1,162 @@
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet"> 
+<link rel='stylesheet' href='../web/css/fullcalendar.css' />
+<!--<script src='../web/lib/jquery.min.js'></script>-->
+<script src='../web/lib/moment.min.js'></script>
+<script src='../web/js/fullcalendar.js'></script>
 <script>
    $(document).ready(function(){
-       $('.conteudo').click(function(){
-            alert('oi');
-       })
+       var date = moment(); //Get the current date
+       $('#calendar').fullCalendar({
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek'//,agendaDay,listWeek'
+            },
+            defaultDate: date.format("YYYY-MM-DD"),
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [{title: title1,start: start1},{title: title2,start: start2},{title: title3,start: start3},{title: title4,start: start4},{title: title5,start: start5},{title: title6,start: start6},{title: title7,start: start7},{title: title8,start: start8},{title: title9,start: start9},{title: title10,start: start10},{title: title11,start: start11},{title: title12,start: start12},{title: title13,start: start13},{title: title14,start: start14},{title: title15,start: start15},{title: title16,start: start16},{title: title17,start: start17},{title: title18,start: start18},{title: title19,start: start19},{title: title20,start: start20},{title: title21,start: start21},{title: title22,start: start22},{title: title23,start: start23},{title: title24,start: start24},{title: title25,start: start25},{title: title26,start: start26},{title: title27,start: start27},{title: title28,start: start28},{title: title29,start: start29},{title: title30,start: start30},{title: title31,start: start31},{title: title32,start: start32},{title: title33,start: start33},{title: title34,start: start34},{title: title35,start: start35},{title: title36,start: start36},{title: title37,start: start37},{title: title38,start: start38},{title: title39,start: start39},
+              /*{
+                title: 'All Day Event',
+                start: '2018-02-01',
+              },
+              {
+                title: 'Long Event',
+                start: '2018-02-07',
+                end: '2018-02-10'
+              },
+              {
+                id: 999,
+                title: 'Repeating Event',
+                start: '2018-02-09T16:00:00'
+              },
+              {
+                id: 999,
+                title: 'Repeating Event',
+                start: '2018-02-16T16:00:00'
+              },
+              {
+                title: 'Conference',
+                start: '2018-02-11',
+                end: '2018-02-13'
+              },
+              {
+                title: 'Meeting',
+                start: '2018-02-12T10:30:00',
+                end: '2018-02-12T12:30:00'
+              },
+              {
+                title: 'Lunch',
+                start: '2018-02-12T12:00:00'
+              },
+              {
+                title: 'Meeting',
+                start: '2018-02-12T14:30:00'
+              },
+              {
+                title: 'Happy Hour',
+                start: '2018-02-12T17:30:00'
+              },
+              {
+                title: 'Dinner',
+                start: '2018-02-12T20:00:00'
+              },
+              {
+                title: 'Birthday Party',
+                start: '2018-02-13T07:00:00'
+              },
+              {
+                title: 'Click for Google',
+                url: 'http://google.com/',
+                start: '2018-02-28'
+              }
+              {
+          title: 'Business Lunch',
+          start: '2018-02-03T13:00:00',
+          constraint: 'businessHours'
+        },
+        {
+          title: 'Meeting',
+          start: '2018-02-13T11:00:00',
+          constraint: 'availableForMeeting', // defined below
+          color: '#257e4a'
+        },
+        {
+          title: 'Conference',
+          start: '2018-02-18',
+          end: '2018-02-20'
+        },
+        {
+          title: 'Party',
+          start: '2018-02-29T20:00:00'
+        },
+
+        // areas where "Meeting" must be dropped
+        {
+          id: 'availableForMeeting',
+          start: '2018-02-11T10:00:00',
+          end: '2018-02-11T16:00:00',
+          rendering: 'background'
+        },
+        {
+          id: 'availableForMeeting',
+          start: '2018-02-13T10:00:00',
+          end: '2018-02-13T16:00:00',
+          rendering: 'background'
+        },
+
+        // red areas where no events can be dropped
+        {
+          start: '2018-02-24',
+          end: '2018-02-28',
+          overlap: false,
+          rendering: 'background',
+          color: '#ff9f89'
+        },
+        {
+          start: '2018-02-06',
+          end: '2018-02-08',
+          overlap: false,
+          rendering: 'background',
+          color: '#ff9f89'
+        }
+                 */
+            ]
+        });
    })
 </script>
+<style>
+    h1{
+        text-align: center;
+        text-shadow: 1px 1px white, -1px -1px #333;
+        color: #ddd;
+        padding: 10px;
+        font-size: 45px;
+        font-family: 'Indie Flower', cursive;
+        
+    }
+    #calendar {
+        max-width: 900px;
+        margin: -30px auto;
+        background: rgba(241, 243, 227, 0.8);
+    }
+</style>
 <div  class="conteudo" >
-    
+    <h1>Aniversariantes</h1>
+    <div id="calendar"></div>
+    <?php
+        //echo '<pre>';
+        $x=1;
+        foreach(aniversario($dados) as $key => $item){
+            $ano=date('Y');
+            //echo $key.' - '.$ano.'-'.$item.'<br>';
+            echo "<script>
+                var title".$x."='".strtoupper($key)."';
+                var start".$x."='".$ano.'-'.$item."';    
+            </script>";
+            $x++;
+        };
+        //echo '<br>';
+    ?>
 </div>

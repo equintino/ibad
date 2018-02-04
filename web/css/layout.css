@@ -13,15 +13,16 @@
   }
 .titulo{
     float: left;
-    font-size: 28px;
     clear: left;
+}
+.titulo, .cor_1{
+    font-size: 45px;
     font-weight: 700;
     font-family: 'Roboto Condensed', sans-serif;
+    text-shadow: 4px 4px 4px gray;
 }
 .cor_1{
     color: red;
-    font-size: 30px;
-    font-family: 'Roboto Condensed', sans-serif;
 }
 .menu{
     float: right;
@@ -35,7 +36,7 @@ a:link{
 .conteudo{
     font-family: sans-serif;
     height: 980px;
-    margin: 20px auto;
+    margin: 43px auto;
 }
 .ref{
     margin-left: 510px;
