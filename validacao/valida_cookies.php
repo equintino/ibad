@@ -22,6 +22,7 @@ class valida_cookies{
     public $index;
     
     function __construct(){
+        session_start();
     }
     public function setLogin($login){
             $this->login = $this->maiusculo($login);
@@ -70,12 +71,14 @@ class valida_cookies{
         }
     }
     public function loginDb(){
+        $_SESSION['login']=$this->login;
+        $senha=$_SESSION['senha']=self::criptografia($this->senha);
         $dao = new UserDao();
         $search = new UserSearchCriteria();
         $search->setLogin($this->login);
         $user = $dao->find($search);
-        $senha = self::criptografia($_COOKIE['senha']);
-        foreach($user as $key => $item){
+        //$senha = self::criptografia($_COOKIE['senha']);
+        foreach($user as $item){
             $senhaDb = @$item->getSenha();
             if($senhaDb== $senha){
                 $this->popup("Bem-Vindo ".$this->getlogin().".",'sim');
