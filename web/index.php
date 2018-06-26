@@ -115,10 +115,12 @@ $index = new index();
 $index->init();
     // Exigir o login para acesso
     $valida = new valida_cookies();
-    @$valida->setLogin($_COOKIE['login']);
-    @$valida->setSenha($_COOKIE['senha']);
-    @$valida->setIndex($_GET['index']);
-    $valida->fazerLogin();
+    if(isset($_SESSION['login'])){
+        $valida->setLogin($_SESSION['login']);
+        $valida->setSenha($_SESSION['senha']);
+        //@$valida->setIndex($_GET['index']);
+    }
+        $valida->fazerLogin();
     // run application!
 $index->carrega();
 ?>
