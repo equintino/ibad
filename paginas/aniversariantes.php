@@ -1,7 +1,8 @@
 <meta charset="utf-8" />
 <?php
+    require_once '../dao/RelBusca.php';
     $dao = new Dao();
-    $search = new ModelSearchCriteria();
+    $search = new RelBusca();
     $search->settabela('lt_membros');
     $model=$dao->encontre($search);
     foreach($model as $item){
@@ -15,5 +16,3 @@
         asort($dados);
         return $dados;
     }
-?>
-

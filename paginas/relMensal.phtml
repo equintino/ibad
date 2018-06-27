@@ -103,11 +103,12 @@
     })
 </script>
 <?php
+    require_once '../dao/RelBusca.php';
     $variaveis=array('dt','descricao','entrada','saida','diz_ofe');
     $act =$_GET['act']; 
     $dao = new Dao();
     $model = new Model();
-    $search = new ModelSearchCriteria();
+    $search = new RelBusca();
     $search->settabela('saldo');
     foreach($dao->encontre($search) as $tudo);
     if($act=='cad'){
@@ -139,7 +140,7 @@
      <div class="conteudo">
          <?php 
             if($act=='cad'):
-               $search = new ModelSearchCriteria();
+               $search = new RelBusca();
                $search->settabela('lt_membros');
                $search->setorder('nome');
                $membros=$dao->encontre($search);
@@ -194,7 +195,7 @@
                 $mesAnterior='dezembro';
                 $ano=$ano-1;
              }
-             $search=new ModelSearchCriteria();
+             $search=new RelBusca();
              $search->setano($ano);
              $search->settabela('saldo');
              $search->setmes(strtolower(ModelValidador::tirarAcento($mesAnterior)));

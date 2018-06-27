@@ -11,14 +11,14 @@
 </style>
 <?php
         include '../validacao/ModelValidador.php';
-        include '../dao/ModelSearchCriteria.php';
+        include '../dao/RelBusca.php';
         include '../dao/dao.php';
         include '../config/Config.php';
         include '../model/Model.php';
         include '../mapping/modelMapper.php';
         
         $dao = new dao();
-        $search = new ModelSearchCriteria();
+        $search = new RelBusca();
         
         $search->settabela('lt_membros');
         $search->setorder('dt_nascimento');
@@ -37,4 +37,3 @@
             echo '<img height=100px src="'.$keys.'" title="dia '.$item.'"/>';
         }
         echo '</div>';
-?>

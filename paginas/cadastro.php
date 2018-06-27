@@ -4,8 +4,9 @@
     $nome=@$_GET['nome'];
     $x=$_GET['pag'];
     
+    require_once '../dao/RelBusca.php';
     $dao=new Dao();
-    $search=new ModelSearchCriteria();
+    $search=new RelBusca();
     $search->settabela('lt_membros');
     $search->setorder('nome');
     $search->setnome($nome);
