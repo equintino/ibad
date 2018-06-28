@@ -142,5 +142,5 @@
 	if (array_key_exists('certificado', $properties)){
 	  $model->setcertificado($properties['certificado']);
 	}
-  } 
+  }
  }

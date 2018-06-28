@@ -57,8 +57,8 @@
 </style>
 <?php  
    include '../validacao/ModelValidador.php';
-   include '../dao/ModelSearchCriteria.php';
-   include '../dao/dao.php';
+   include '../dao/RelBusca.php';
+   include '../dao/DaoRel.php';
    include '../config/Config.php';
    include '../model/Model.php';
    include '../mapping/modelMapper.php';
@@ -74,15 +74,16 @@
              if($mes==1){
                 $mesAnterior='dezembro';
              }
-             $search=new ModelSearchCriteria();
+             $search=new RelBusca();
+             $daoRel=new DaoRel();
              $search->settabela('saldo');
              $search->setmes(strtolower(ModelValidador::tirarAcento($mesAnterior)));
-             $dados=$dao->encontre($search);
+             $dados=$daoRel->encontre($search);
              foreach($dados as $saldomes);
              $saldo=$saldoAnterior=($saldomes->getsaldo());
              $search->settabela($ano);
              $search->setmes($mes);
-             $relatorios=$dao->encontre($search);
+             $relatorios=$daoRel->encontre($search);
           ?>
        <div class="rel" >
          <table border="1" cellspacing="0" class="rel">

@@ -25,115 +25,115 @@
         margin: -227px 92px;
         width: 400px;
     }
+    .pai{
+        position: absolute;
+        z-index: 1;
+        margin: -190px 92px;
+        width: 210px;
+    }
+    .mae{
+        position: absolute;
+        z-index: 1;
+        margin: -190px 296px;
+        width: 210px;
+    }
+    .dt_nascimento{
+        position: absolute;
+        z-index: 1;
+        margin: -136px 82px;
+        width: 140px;
+    }
+    .estcivil{
+        position: absolute;
+        z-index: 1;
+        margin: -136px 280px;
+        width: 150px;
+        text-align: center;
+    }
+    .dt_ingresso{
+        position: absolute;
+        z-index: 1;
+        margin: -85px 82px;
+        width: 140px;
+    }
+    .dt_batismo{
+        position: absolute;
+        z-index: 1;
+        margin: -84px 298px;
+        width: 140px;
+    }
+    .funcao{
+        position: absolute;
+        z-index: 1;
+        margin: -44px 92px;
+        width: 160px;
+    }
+    .rg{
+        position: absolute;
+        z-index: 1;
+        margin: -44px 325px;
+        width: 140px;
+    }
+    .endereco{
+        position: absolute;
+        z-index: 1;
+        width: 379px;
+        margin: -355px 607px;
+        font-size: 30px;
+    }
+    .ano1{
+        position: absolute;
+        z-index: 1;
+        margin: -194px 560px;
+        font-size: 20px;
+        font-family: sans;
+        font-weight: 900;
+        color: #870000;
+    }
+    .ano2{
+        position: absolute;
+        z-index: 1;
+        margin: -194px 650px;
+        font-size: 20px;
+        font-family: sans;
+        font-weight: 900;
+        color: #870000;
+    }
+    .ano3{
+        position: absolute;
+        z-index: 1;
+        margin: -194px 740px;
+        font-size: 20px;
+        font-family: sans;
+        font-weight: 900;
+        color: #870000;
+    }
+    .ano4{
+        position: absolute;
+        z-index: 1;
+        margin: -194px 830px;
+        font-size: 20px;
+        font-family: sans;
+        font-weight: 900;
+        color: #870000;
+    }
+    .ano5{
+        position: absolute;
+        z-index: 1;
+        margin: -194px 918px;
+        font-size: 20px;
+        font-family: sans;
+        font-weight: 900;
+        color: #870000;
+    }
 </style>
 <script>
     $(document).ready(function(){
-        $('.pai').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-190px 92px',
-            width: '210px'
-        })
-        $('.mae').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-190px 296px',
-            width: '210px'
-        })
-        $('.dt_nascimento').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-136px 82px',
-            width: '140px'
-        })
-        $('.estcivil').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-136px 280px',
-            width: '150px',
-            textAlign: 'center'
-        })
-        $('.dt_ingresso').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-85px 82px',
-            width: '140px'
-        })
-        $('.dt_batismo').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-84px 298px',
-            width: '140px'
-        })
-        $('.funcao').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-44px 92px',
-            width: '160px'
-        })
-        $('.rg').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-44px 325px',
-            width: '140px'
-        })
-        $('.endereco').css({
-            position: 'absolute',
-            zIndex: '1',
-            width: '379px',
-            margin: '-355px 607px',
-            fontSize: '30px'
-        })
-        $('.ano1').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-194px 560px',
-            fontSize: '20px',
-            fontFamily: 'sans',
-            fontWeight: '900',
-            color: '#870000'
-        })
-        $('.ano2').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-194px 650px',
-            fontSize: '20px',
-            fontFamily: 'sans',
-            fontWeight: '900',
-            color: '#870000'
-        })
-        $('.ano3').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-194px 740px',
-            fontSize: '20px',
-            fontFamily: 'sans',
-            fontWeight: '900',
-            color: '#870000'
-        })
-        $('.ano4').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-194px 830px',
-            fontSize: '20px',
-            fontFamily: 'sans',
-            fontWeight: '900',
-            color: '#870000'
-        })
-        $('.ano5').css({
-            position: 'absolute',
-            zIndex: '1',
-            margin: '-194px 918px',
-            fontSize: '20px',
-            fontFamily: 'sans',
-            fontWeight: '900',
-            color: '#870000'
-        })
         $('#btnPrint').click(function(){
             window.print();
-        })
+        });
         var batizado=null;var id=null;var nome=null;var pai=null;var mae=null;
-    })
+    });
     </script>
     <?php
         include '../validacao/ModelValidador.php';

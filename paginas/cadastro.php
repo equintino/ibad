@@ -6,7 +6,7 @@
     
     require_once '../dao/RelBusca.php';
     $dao=new Dao();
-    $search=new RelBusca();
+    $search=new ModelSearchCriteria();
     $search->settabela('lt_membros');
     $search->setorder('nome');
     $search->setnome($nome);

@@ -199,14 +199,16 @@
              $search->setano($ano);
              $search->settabela('saldo');
              $search->setmes(strtolower(ModelValidador::tirarAcento($mesAnterior)));
-             $dados=$dao->encontre($search);
+             $dados=$daoRel->encontre($search);
              if(!$dados){
                 echo 'Relatório inexistente';
                 die;
              }
              
-             foreach($dados as $saldomes); 
-             $saldo=$saldoAnterior=($saldomes->getsaldo()); 
+             //foreach($dados as $saldomes);
+             
+             $saldo=$saldoAnterior=$dados[array_keys($dados)[0]]->getsaldo();
+             //$saldo=$saldoAnterior=($saldomes->getsaldo()); 
              $search->setmes(ModelValidador::numeroMes(ModelValidador::tirarAcento($mes)));
              if($_GET['mes']==1){
                 $ano=$ano+1;
@@ -214,12 +216,13 @@
              $search->settabela($ano);
              $search->setorder('dt');
              $search->setano(null);
-             $relatorios=$dao->encontre($search); 
+             $relatorios=$daoRel->encontre($search); 
              if(!$relatorios && $conclui != 1){
                   echo 'Relatório do mês de '.$mes.' é inexistente.';
                   die;
              } 
-             foreach($relatorios as $datas); 
+             //foreach($relatorios as $datas);
+             //echo '<pre>';print_r($dados);die;
           ?>
        <div class="rel" >
          <table border="1" cellspacing="0" class="rel">

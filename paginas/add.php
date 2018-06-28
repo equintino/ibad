@@ -12,6 +12,7 @@
   @$mes = ModelValidador::tirarAcento($_POST['mes']);
   @$ano = $_POST['ano'];
   $act=$_GET['act'];
+  array_key_exists('tabela',$_POST)?$tabela=$_POST['tabela']:$tabela=null;
   foreach($_POST as $key => $item){
      if($key=='dia'){
         $key='dt';
@@ -50,7 +51,9 @@
         $model->$classe($item);
      }
   }
-  $model->settabela($ano);
+    if(!$tabela){
+        $model->settabela($ano);
+    }
   if(@$_FILES['comprovante']['name']){
      $target_dir = "../web/documentos/comprovantes/";
      $target_file = $target_dir.$_POST['dia'].  ModelValidador::numeroMes($_POST['mes']).$_POST['ano'].'_'.basename($_FILES['comprovante']['name']);
@@ -61,7 +64,8 @@
          echo 'Erro ao salvar arquivo.';
      }
   }
-  if($act == 'cad'){
+  if($act == 'cad' ){
+    if($_POST['foto']){
       if(!$_FILES['foto']['name'] && !$_FILES['certificado']['name']){
            $foto=$_POST['foto'];
       }elseif($_FILES['certificado']['name']){
@@ -132,7 +136,10 @@
       }
       //print_r($_FILES);
         $model->setfoto($foto);
-        $model->setcertificado(str_replace('../web/','',$target_file));
+        if(isset($target_file)){
+            $model->setcertificado(str_replace('../web/','',$target_file));
+        }
+    }
      $model->setexcluido(0);
      $dao->grava($model);
      }

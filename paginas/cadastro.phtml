@@ -30,7 +30,7 @@
                             },
                             "NÂO": function() {
                                 $( this ).dialog( "close" );
-                                var link = "../web/carteirinha.php?ids="+ids+"&act=barteirinha";
+                                var link = "../web/carteirinha.php?ids="+ids+"&act=carteirinha";
                                 window.open(link,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=740');
                               return false;
                             }
@@ -208,7 +208,9 @@
       
          elseif($act=='cad'): 
             @$search->setid($_GET['id']);
-            $dados=$dao->encontrePorId($search);
+            $dados_=$dao->encontre($search);
+            $dados=$dados_[array_keys($dados_)[0]];
+            //$dados= get_class_vars($dados);
         ?>
         <fieldset class=cadMembros>
             <legend>CADASTRO DE MEMBROS</legend>
@@ -216,15 +218,32 @@
          <table>
              <?php 
              foreach($variaveis as $keys => $item){
-                $classe='get'.$item;
-                echo '<input type=hidden name=id value="'.$dados->getid().'">';
+                if(!$search->getid()){
+                    $classe=null;
+                }else{
+                    $classe='get'.$item;
+                }
+                echo '<input type=hidden name=id value="';
+                    if($classe){ 
+                        echo $dados->getid();
+                    }
+                echo '">';
+                echo '<input type=hidden name=tabela value="lt_membros" />';
                  if($item=='email'){
-                    echo "<tr><td align=\"right\"> $keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value=".$dados->getemail()." ></td></tr>";
-                 }elseif(substr($item,0,2)=='dt'){ 
-                    if(ModelValidador::data($dados->$classe())=='//'){
-                       $data_=null;
+                    echo "<tr><td align=\"right\"> $keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value=";
+                    if($classe){
+                        echo $dados->getemail();
+                    }
+                    echo " ></td></tr>";
+                 }elseif(substr($item,0,2)=='dt'){
+                    if($classe){
+                        if(ModelValidador::data($dados->$classe())=='//'){
+                           $data_=null;
+                        }else{
+                           $data_= ModelValidador::data($dados->$classe());
+                        }
                     }else{
-                       $data_= ModelValidador::data($dados->$classe());
+                        $data_=null;
                     }
                     echo "<tr><td align=\"right\">$keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value='".$data_."' ></td></tr>";
                  }elseif($item=='sexo'){
@@ -240,7 +259,11 @@
                     echo "<tr><td align=right>$keys: </td><td id=sexo align=center><input type=radio name=sexo value=Masculino $masculino> Masculino ";
                     echo "<input type=radio name=sexo value=Femenino $femenino> Femenino </td></tr>";
                  }else{
-                    echo "<tr><td align=\"right\">$keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value='".$dados->$classe()."' ></td></tr>";
+                    echo "<tr><td align=\"right\">$keys: </td><td><input type=\"text\" name=\"".$item."\" size=\"40\" value='";
+                    if($classe){
+                        echo $dados->$classe();
+                    }
+                    echo "' ></td></tr>";
                  }
              }
              ?>
@@ -249,7 +272,7 @@
                   <div id="wrapper" style="margin-top: 20px;">
                      <input id="fileUpload" name="foto" multiple="multiple" type="file" title="Inserir foto"/> 
                      <div id="image-holder"><img class="thumb-image" src="" alt="Inserir Foto" /></div>
-                     <input type="hidden" name="foto" value="<?= $dados->getfoto() ?>"/>
+                     <input type="hidden" name="foto" value="<?php if($classe){echo $dados->getfoto();} ?>"/>
                      <br><br>
                      Inserir Certificado de Batismo:
                     <div><input name="certificado" type="file" title="Inserir o certificado"/></div>
