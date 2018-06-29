@@ -23,14 +23,14 @@
             $('#sair img').mouseover(function(){
                 $(this).css({
                     cursor:'pointer'
-                })
-            })
+                });
+            });
             $('#sair img').click(function(){
                 $(location).attr('href','../web/sair.php');
-            })
+            });
             $('#flashes').fadeOut(2000,function(){
                 $(this).hide('slow');
-            })
+            });
             //$('.menu > li a').css('color','#cc4933')
             //alert($('.menu').css('background','red'));
         })
@@ -39,6 +39,10 @@
         #sair img{
             float: right;
             padding-left: 10px;
+        }
+        #main{
+            width: 1150px;
+            margin: auto;
         }
         .menu,
         .submenu {
@@ -55,19 +59,43 @@
             visibility: hidden;
             overflow: hidden;
         }
+        .topo{
+            top: 0;
+            position: absolute;
+            z-index: -1;
+            width: 100%;
+            background: url('../web/img/fundoMarrom.png');
+            background-size: 5px;
+        }
+        .topo, .head{
+            height: 100px;
+        }
+        .titulo{
+            float: left;
+            color: red;
+            text-shadow: 2px 2px 2px yellow;
+            font-size: 40px;
+        }
+        .menu > li, .submenu li{
+            padding: 35px 20px;
+            margin-top: -15px;
+            //height: 30px;
+        }
         .menu,
         .submenu {
             list-style: none;
-            background: #bd9750;
+            /*background: #bd9750;*/
+            float: left;
+            margin-left: 40px;
+            font-size: 26px;
+            //border: solid red;
         }
-        .menu a{
+        .menu a, .sub{
             text-decoration: none;
             display: block;
-            padding: 8px;
             color: white;
             text-shadow:#000 0px 1px 0, #999 0 -1px 0;
             font-family: sans-serif;
-            font-size: 14px;
             text-transform: uppercase;
             font-weight: 700;
         }
@@ -81,54 +109,89 @@
             display: block;
         }
         .submenu {
+            background: #a77e60;
             display: none;
             position: absolute;
-            left: 598px;
-            min-width: 165px;
-            top: 89px;
+            z-index: 5;
+            //left: 598px;
+            padding-left: 2px;
+            margin-left: -20px;
+            min-width: 256px;
+            top: 101px;
+            //background: url('../web/img/fundoMarrom2.png');
+            //background-size: 5px;
         }
         .menu > li:hover{
-            background: #875a39;
-            -webkit-transition: 0.2s ease-in;
+            background: #a77e60;
+            /*-webkit-transition: 0.2s ease-in;
             -moz-transition: 0.2s ease-in;
             -o-transition: 0.2s ease-in;
-            transition: 0.2s ease-in;
+            transition: 0.2s ease-in;*/
+            //background: url('../web/img/fundoMarrom2.png');
+            //background-size: 5px;
+            //height: 60px;
+            //padding: 10px;
         }
         .submenu li:hover {
-            background: #555;
+            font-style: italic;
+            //background: #555;
+            //background: url('../web/img/fundoMarrom2.png');
+            //background-size: 5px;
+            //padding: 20px;
+        }
+        .l1{
+            position: relative;
+            top: 100px;
+        }
+        #content{
+            //border: solid red;
+            margin-top: 100px;
         }
     </style>
 </head>
 <body id="page">
-  <div class="SITE_ROOT" id="SITE_ROOT" >
-    <div class="tail-top-right"></div>
+<div class="topo" ></div>
+  <!--<div class="SITE_ROOT" id="SITE_ROOT" >-->
     <div id="main">        
         <!-- header -->
-      <div id="cabecalho">
-          <span class="titulo">IBAD -&nbsp</span><span class="cor_1" id="logo">Igreja Batista do Amor de Deus</span>
-          <hr size="0.5" class="l1">
-        <span id="sair"><img src="../web/img/sair.png" title="Sair" height="35px" /></span>
-         <div class="menu" >
-             <ul class="menu">
-             <!--<button>-->
-                   <?php 
-                     $mes_=  ModelValidador::nomeMes(date('m'));
-                     $menu=array('home'=>'Home','doc'=>'Documentos','cad'=>'Cadastro de Membros','lista'=>'Ficha de Membros','relatorio'=>'Relatórios','relMensal_'=>'Movimentação');    
-                     foreach($menu as $key => $item){
-                       if($item == 'Movimentação'){
-                          echo '<li><a href="index.php?pagina=relMensal&&act=cad" id="movimento" >'.$item.'</a></li>';
-                       }elseif($item == 'Ficha de Membros'){
-                          echo '<li class="sub"><a href="'.Utils::createLink('cadastro',array('act'=>'lista','pag'=>0)).'" >'.$item.'</a></li>';
-                          echo '<ul class="submenu"><li><a href="#">Fichas</a></li><li><a href="#">Carteirinhas</a></li></ul>';
-                       }elseif($item == 'Cadastro de Membros'){
-                          echo '<li><a href="'.Utils::createLink('cadastro',array('act'=>'cad','pag'=>0)).'" >'.$item.'</a></li>';
-                       }else{
-                          echo '<li><a href="'.Utils::createLink($key).'" >'.$item.'</a></li>';
-                       }
-                     }
+        <div id="cabecalho">
+            <span class="titulo"><img src="logo.png" height="50"/> IBAD</span><span class="cor_1" id="logo"></span>
+            <div class="menu" >
+                <ul class="menu">
+                    <li class="sub"><a href="<?= Utils::createLink('home') ?>" />Home</a></li>
+                    <li class="sub"><a href="<?= Utils::createLink('doc') ?>" />Documentos</a></li>
+                    <li class="sub">Membros
+                        <ul class="submenu">
+                            <li><a href="<?= Utils::createLink('cadastro',array('act'=>'cad')) ?>" />Novo</a></li>
+                            <a href="<?= Utils::createLink('cadastro',array('act'=>'lista','pag'=>0)) ?>" /><li>Fichas</li></a>
+                        </ul>
+                    </li>
+                    <li class="sub">movimentação
+                        <ul class="submenu">
+                            <a href="index.php?pagina=relMensal&act=cad" id="movimento" ><li>NOVO</li></a>
+                            <li><a href="<?= Utils::createLink('relatorio',array('act'=>'rel')) ?>" />Relatórios</a></li>
+                        </ul>
+                    </li>
+                    <!--<button>-->
+                <?php 
+                    $mes_=  ModelValidador::nomeMes(date('m'));
+                    //$menu=array('home'=>'Home','doc'=>'Documentos','cad'=>'Cadastro de Membros','lista'=>'Ficha de Membros','relatorio'=>'Relatórios','relMensal_'=>'Movimentação');    
+                    //foreach($menu as $key => $item){
+                        //if($item == 'Movimentação'): ?>
+                       <?php //elseif($item == 'Ficha de Membros'):
+                          //echo '<li class="sub"><a href="'.Utils::createLink('cadastro',array('act'=>'lista','pag'=>0)).'" >'.$item.'</a></li>';
+                          //echo '<ul class="submenu"><li><a href="#">Fichas</a></li><li><a href="#">Carteirinhas</a></li></ul>';
+                       //elseif($item == 'Cadastro de Membros'):
+                          //echo '<li><a href="'.Utils::createLink('cadastro',array('act'=>'cad','pag'=>0)).'" >'.$item.'</a></li>';
+                       //else:
+                          //echo '<li><a href="'.Utils::createLink($key).'" >'.$item.'</a></li>';
+                       //endif;
+                     //}
                    ?>
              </ul>
           </div>
+          <hr size="0.5" class="l1">
+        <span id="sair"><img src="../web/img/sair.png" title="Sair" height="35px" /></span>
        </div>
         <!-- content -->
         <div id="content">
@@ -154,7 +217,7 @@
                 </div>
             </div>
         </div>
-     </div>
+     <!--</div>-->
    </div>        
         <!-- footer -->
           <div  id="rodape" >

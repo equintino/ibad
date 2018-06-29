@@ -2,7 +2,7 @@
     $act=$_GET['act'];
     $busca=@$_GET['busca'];
     $nome=@$_GET['nome'];
-    $x=$_GET['pag'];
+    array_key_exists('pag',$_GET)?$x=$_GET['pag']:$x=null;
     
     require_once '../dao/RelBusca.php';
     $dao=new Dao();
