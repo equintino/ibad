@@ -1,5 +1,6 @@
 <?php
   include_once '../dao/Dao.php';
+  require_once '../dao/DaoRel.php';
   include_once '../model/Model.php';
   include_once '../mapping/modelMapper.php';
   include_once '../dao/ModelSearchCriteria.php';
@@ -8,6 +9,7 @@
   include_once 'redimensiona.php';
   
   $dao = new Dao();
+  $daoRel = new DaoRel();
   $model = new Model();
   @$mes = ModelValidador::tirarAcento($_POST['mes']);
   @$ano = $_POST['ano'];
@@ -144,8 +146,8 @@
      $dao->grava($model);
      }
   
-  if($act == 'rel'){ 
-     $dao->grava2($model);
+  if($act == 'rel'){
+     $daoRel->grava($model);
   }
 ?>
 <h3>REGISTRO GRAVADO COM SUCESSO</h3>

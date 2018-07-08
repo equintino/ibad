@@ -143,15 +143,16 @@
                $search = new RelBusca();
                $search->settabela('lt_membros');
                $search->setorder('nome');
-               $membros=$dao->encontre($search);
+               $membros=$dao2->encontre($search);
                $lista = "'";
                foreach($membros as $membro){
+               //echo '<pre>';print_r($membro->getnome());
                   $lista .= mb_strtoupper($membro->getnome().',','UTF-8');
                }
                $lista .="'";
                echo '<script>
                         var membros='.$lista.';
-                     </script>';               
+                     </script>';
          ?>
          <form enctype="multipart/form-data" class="font_1" id="cadastro" action="../paginas/add.php?act=rel" method="POST" >
          <table class="notprint" id="mov">

@@ -1,5 +1,6 @@
 <?php
 require_once 'dao.php';
+require_once 'RelBusca.php';
 class DaoRel extends dao{
     private $variaveis=array('id','mes','dt','descricao','entrada','saida','comprovante','diz_ofe','criado','modificado','excluido');
     

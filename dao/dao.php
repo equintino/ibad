@@ -1,6 +1,6 @@
 <?php 
     class dao{
-        private $db = null;
+        protected $db = null;
         private $banco;
         private $variaveis=array('id','nome','email','tel','endereco','dt_batismo','dt_nascimento','criado','modificado','excluido','dt_ingresso','dt_casamento','conjuge','igbatismo','estcivil','tit','escolaridade','rg','pai','bairro','cel','sexo','mae','cep','estado','prof','cidade','cpf','igorigem','tipo','numero','complemento','naturalde','foto', 'certificado');
         
@@ -34,8 +34,8 @@
             return $result;
         }
         public function encontrePorId(ModelSearchCriteria $search=null){
-            if($search->getid() != null){
-                $row = $this->query('SELECT * FROM `'.$search->gettabela().'` WHERE excluido = "0" and id = ' . (int) $search->getid())->fetch();
+            if($search->getId() != null){
+                $row = $this->query('SELECT * FROM `'.$search->gettabela().'` WHERE excluido = "0" and id = ' . (int) $search->getId())->fetch();
             }else{ 
                 $row = $this->query('SELECT * FROM `'.$search->gettabela().'` WHERE excluido = "0" ')->fetchAll();
             }
@@ -59,7 +59,7 @@
             ));
             return $statement->rowCount() == 1;
         }
-        private function getDb($a=null) {
+        protected function getDb($a=null) {
             $a?$a=$a:$a='db';
             if ($this->db !== null) {
                 return $this->db;
@@ -127,7 +127,7 @@
             }
             return $model;
         }
-        private function executeStatement(PDOStatement $statement, array $params){
+        protected function executeStatement(PDOStatement $statement, array $params){
             if (!$statement->execute($params)){
                 self::throwDbError($this->getDb()->errorInfo());
             }
@@ -160,7 +160,7 @@
             }
             return $sql;
         }
-        private function criaTabela($tabela){
+        public function criaTabela($tabela){
             $sql="CREATE TABLE IF NOT EXISTS `$tabela` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `mes` INT(2) NULL , `dt` DATE NULL , `descricao` TEXT NULL , `entrada` DECIMAL(12,2) NULL , `saida` DECIMAL(12,2) NULL , `diz_ofe` ENUM('diz','ofe') NULL , `criado` varchar(50) NULL , `modificado` varchar(50) NULL , `excluido` INT(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;";
             return $sql;
         }
@@ -193,7 +193,7 @@
         $this->executeStatement($statement, $this->getParams3($model));
         $search=new ModelSearchCriteria();
         if (!$model->getid()) {
-             return $this->encontrePorId($search->setid($this->getDb()->lastInsertId()));
+             //return $this->encontrePorId($search->setid($this->getDb()->lastInsertId()));
         }
         return $model;
    }

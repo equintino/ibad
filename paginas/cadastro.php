@@ -5,7 +5,8 @@
     array_key_exists('pag',$_GET)?$x=$_GET['pag']:$x=null;
     
     require_once '../dao/RelBusca.php';
-    $dao=new Dao();
+    require_once '../dao/BuscaOrdenada.php';
+    $dao=new BuscaOrdenada();//Dao();
     $search=new ModelSearchCriteria();
     $search->settabela('lt_membros');
     $search->setorder('nome');

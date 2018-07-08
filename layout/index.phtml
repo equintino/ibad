@@ -86,7 +86,7 @@
             list-style: none;
             /*background: #bd9750;*/
             float: left;
-            margin-left: 40px;
+            //margin-left: 40px;
             font-size: 26px;
             //border: solid red;
         }
@@ -98,6 +98,11 @@
             font-family: sans-serif;
             text-transform: uppercase;
             font-weight: 700;
+        }
+        .menu a{
+            //display: block;
+            //border: solid red;
+            //height: 50px;
         }
         .menu li {
             position: relative;
@@ -158,7 +163,7 @@
             <span class="titulo"><img src="logo.png" height="50"/> IBAD</span><span class="cor_1" id="logo"></span>
             <div class="menu" >
                 <ul class="menu">
-                    <li class="sub"><a href="<?= Utils::createLink('home') ?>" />Home</a></li>
+                    <li class="sub"><a href="<?= Utils::createLink('home') ?>" /><lable>Home</lable></a></li>
                     <li class="sub"><a href="<?= Utils::createLink('doc') ?>" />Documentos</a></li>
                     <li class="sub">Membros
                         <ul class="submenu">
