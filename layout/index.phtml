@@ -78,17 +78,15 @@
         }
         .menu > li, .submenu li{
             padding: 35px 20px;
-            margin-top: -15px;
-            //height: 30px;
+            margin-top: -17px;
+            /*border: solid red;*/
         }
         .menu,
         .submenu {
             list-style: none;
             /*background: #bd9750;*/
             float: left;
-            //margin-left: 40px;
-            font-size: 26px;
-            //border: solid red;
+            font-size: 24px;
         }
         .menu a, .sub{
             text-decoration: none;
@@ -98,11 +96,6 @@
             font-family: sans-serif;
             text-transform: uppercase;
             font-weight: 700;
-        }
-        .menu a{
-            //display: block;
-            //border: solid red;
-            //height: 50px;
         }
         .menu li {
             position: relative;
@@ -118,13 +111,10 @@
             display: none;
             position: absolute;
             z-index: 5;
-            //left: 598px;
             padding-left: 2px;
             margin-left: -20px;
-            min-width: 256px;
-            top: 101px;
-            //background: url('../web/img/fundoMarrom2.png');
-            //background-size: 5px;
+            min-width: 236px;
+            top: 100px;
         }
         .menu > li:hover{
             background: #a77e60;
@@ -132,24 +122,15 @@
             -moz-transition: 0.2s ease-in;
             -o-transition: 0.2s ease-in;
             transition: 0.2s ease-in;*/
-            //background: url('../web/img/fundoMarrom2.png');
-            //background-size: 5px;
-            //height: 60px;
-            //padding: 10px;
         }
         .submenu li:hover {
             font-style: italic;
-            //background: #555;
-            //background: url('../web/img/fundoMarrom2.png');
-            //background-size: 5px;
-            //padding: 20px;
         }
         .l1{
             position: relative;
             top: 100px;
         }
         #content{
-            //border: solid red;
             margin-top: 100px;
         }
     </style>
@@ -164,7 +145,12 @@
             <div class="menu" >
                 <ul class="menu">
                     <li class="sub"><a href="<?= Utils::createLink('home') ?>" /><lable>Home</lable></a></li>
-                    <li class="sub"><a href="<?= Utils::createLink('doc') ?>" />Documentos</a></li>
+                    <li class="sub">Documentos
+                        <ul class="submenu">
+                            <li><a href="<?= Utils::createLink('doc') ?>" />Exibir</a></li>
+                            <li><a href="<?= Utils::createLink('docmais') ?>" />Adcionar</a></li>
+                        </ul>
+                    </li>
                     <li class="sub">Membros
                         <ul class="submenu">
                             <li><a href="<?= Utils::createLink('cadastro',array('act'=>'cad')) ?>" />Novo</a></li>

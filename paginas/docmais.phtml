@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Iserir Documentos</title>
+        <script>
+            $(document).ready(function(){
+               $("select[name=ano]").change(function(){
+                   var ano = $(this).on(':selected').val();
+                   $(location).attr('href','index.php?pagina=docmais&ano='+ano+'');
+               });
+               $('option[name=<?= $ano ?>]').attr('selected','selected');
+            });
+        </script>
+        <style>
+            #rodape{
+                display: none;
+            }
+            h2{
+                padding-top: 20px;
+                text-align: center;
+                color: blue;
+                text-shadow: 2px 2px 1px gray;
+                font-size: 28px;
+            }
+            .tela{
+                width: 900px;
+                background: white;
+                margin: auto;
+                border-radius: 5px;
+                height: 500px;
+            }
+            .tela form{
+                /*border: solid red;*/
+                width: 300px;
+                margin: auto;
+                font-size: 26px;
+            }
+            .tela form option{
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div  class="conteudo" >
+            <div class="tela">
+            <h2>INSERIR COMPROVANTES E NOTAS FISCAIS</h2>
+            <form action="#" name="comprovante" method="post">
+                <label>Selecione o ano</label>
+                <select name="ano">
+                    <option></option>
+                    <?php
+                        for($x=0; $x<count($anos);$x++): ?>
+                            <option name="<?= $anos[$x] ?>"><?= $anos[$x] ?></option>
+                    <?php endfor; ?>
+                </select>
+                    <?php if($ano): ?>
+                            <label>Selecione o mês</label>
+                            <select name="mes">
+                                <option></option>
+                             <?php for($x=0; $x<count($meses);$x++): ?>
+                                <option name="<?= $meses[$x] ?>"><?= $meses[$x] ?></option>
+                    <?php endfor; ?>
+                            </select>
+                                <?php endif; ?>
+            </form>
+            </div>
+        </div>
+    </body>
+</html>
