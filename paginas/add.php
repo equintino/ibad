@@ -56,16 +56,33 @@
     if(!$tabela){
         $model->settabela($ano);
     }
-  if(@$_FILES['comprovante']['name']){
-     $target_dir = "../web/documentos/comprovantes/";
-     $target_file = $target_dir.$_POST['dia'].  ModelValidador::numeroMes($_POST['mes']).$_POST['ano'].'_'.basename($_FILES['comprovante']['name']);
-     if (move_uploaded_file($_FILES["comprovante"]["tmp_name"], $target_file)){
-         echo 'Arquivo salvo.';
-        $model->setcomprovante($target_file);
-     }else{
-         echo 'Erro ao salvar arquivo.';
-     }
-  }
+    if(isset($_FILES)){
+        $target_dir = "../web/documentos/comprovantes/";
+        if(isset($_FILES['comprovante']['name'])){
+           $target_file = $target_dir.$_POST['dia'].  ModelValidador::numeroMes($_POST['mes']).$_POST['ano'].'_'.basename($_FILES['comprovante']['name']);
+           if (move_uploaded_file($_FILES["comprovante"]["tmp_name"], $target_file)){
+               echo 'Arquivo salvo.';
+              $model->setcomprovante($target_file);
+           }else{
+               echo 'Erro ao salvar arquivo.';
+           }
+        }else{
+            foreach($_FILES as $key => $item){
+                if($_FILES[$key]['name']){
+                    $model->setid(strstr($key,'-',true));
+                    $target_file = $target_dir.$_POST['mes'].$_POST['ano'].'_'.basename($_FILES[$key]['name']);
+                    if(move_uploaded_file($_FILES[$key]['tmp_name'], $target_file)){
+                        echo 'Arquivo '.$_FILES[$key]['name'].' salvo.<br>';
+                        $model->setcomprovante($target_file);
+                        $daoRel->gravaComprovante($model);
+                    }else{
+                        echo 'Erro ao salvar arquivo.';
+                    }
+                    //echo '<br>';
+                }
+            }
+        }
+    }
   if($act == 'cad' ){
     if($_POST['foto']){
       if(!$_FILES['foto']['name'] && !$_FILES['certificado']['name']){

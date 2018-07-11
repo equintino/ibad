@@ -9,7 +9,16 @@
                    var ano = $(this).on(':selected').val();
                    $(location).attr('href','index.php?pagina=docmais&ano='+ano+'');
                });
+               $("select[name=mes]").change(function(){
+                    var ano = $("select[name=ano]").on(':selected').val();
+                    var mes = $(this).on(':selected').val();
+                    $(location).attr('href','index.php?pagina=docmais&ano='+ano+'&mes='+mes+'');
+               });
                $('option[name=<?= $ano ?>]').attr('selected','selected');
+               $('option[name=<?= $mes ?>]').attr('selected','selected');
+               /*$(':file').click(function(){
+                    alert($(this).attr('name'));
+               });*/
             });
         </script>
         <style>
@@ -28,16 +37,27 @@
                 background: white;
                 margin: auto;
                 border-radius: 5px;
-                height: 500px;
+                min-height: 500px;
+                padding: 40px;
             }
             .tela form{
                 /*border: solid red;*/
-                width: 300px;
+                width: 700px;
                 margin: auto;
                 font-size: 26px;
             }
             .tela form option{
                 font-size: 20px;
+            }
+            table td{
+                padding: 5px;
+            }
+            input[type=submit]{
+                float: right;
+                margin: 10px 50px;
+            }
+            input[type=submit]:hover{
+                cursor: pointer;
             }
         </style>
     </head>
@@ -45,7 +65,7 @@
         <div  class="conteudo" >
             <div class="tela">
             <h2>INSERIR COMPROVANTES E NOTAS FISCAIS</h2>
-            <form action="#" name="comprovante" method="post">
+            <form action="../paginas/add.php?act=comp" enctype="multipart/form-data" name="comprovante" method="post">
                 <label>Selecione o ano</label>
                 <select name="ano">
                     <option></option>
@@ -53,16 +73,32 @@
                         for($x=0; $x<count($anos);$x++): ?>
                             <option name="<?= $anos[$x] ?>"><?= $anos[$x] ?></option>
                     <?php endfor; ?>
-                </select>
+                </select><br>
                     <?php if($ano): ?>
                             <label>Selecione o mês</label>
                             <select name="mes">
                                 <option></option>
-                             <?php for($x=0; $x<count($meses);$x++): ?>
-                                <option name="<?= $meses[$x] ?>"><?= $meses[$x] ?></option>
-                    <?php endfor; ?>
+                             <?php foreach($meses as $key => $Item): ?>
+                                <option name="<?= $key ?>"><?= $key ?></option>
+                    <?php endforeach; endif;?>
                             </select>
-                                <?php endif; ?>
+                    <?php if($mes): ?>
+                            <br><br>
+                            <table border="1" cellspacing="0">
+                                <tr><th>DESCRIÇÃO</th><th>COMPROVANTE</th></tr>
+                        <?php $x=0;foreach($meses[$mes] as $key => $item): ?>
+                                    <?php if(!$item[1]){
+                                        echo "<tr><td width=\"50%\"> $key </td><td>";
+                                        echo "<input type=file name='$item[2]-$key' />";
+                                        echo "<input type=hidden name=id value=$item[2] />";
+                                        $x++;
+                                    }
+                                    ?>
+                                    </td></tr>
+                        <?php endforeach; ?>
+                            </table>
+                            <input type="submit" value="Gravar" />
+                    <?php endif; ?>
             </form>
             </div>
         </div>

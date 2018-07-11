@@ -1,7 +1,7 @@
 <?php
     require_once '../dao/dao.php';
-    
     array_key_exists('ano',$_GET)?$ano=$_GET['ano']:$ano=null;
+    array_key_exists('mes',$_GET)?$mes=$_GET['mes']:$mes=null;
     $dao = new dao();
     $search = new ModelSearchCriteria();
     //echo '<pre>';
@@ -16,10 +16,10 @@
         $dados=$dao->encontre($search);
         foreach($dados as $item){
             if($item->getsaida()>0){
-                $meses[$item->getmes()][$item->getdescricao()]=array($item->getsaida(),$item->getcomprovante());
+                $meses[$item->getmes()][$item->getdescricao()]=array($item->getsaida(),$item->getcomprovante(),$item->getid());
             }
         }
-        echo '<pre>';print_r($meses);die;
+        //echo '<pre>';print_r($meses);die;
         //$selected=
         //echo '<pre>';print_r($anos);die;
     }

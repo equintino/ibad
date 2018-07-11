@@ -43,6 +43,10 @@ class DaoRel extends dao{
         }
         return $this->update($model);
     }
+    public function gravaComprovante(Model $model){
+        $sql="UPDATE `".$model->gettabela()."` SET comprovante='".$model->getcomprovante()."' WHERE id=".$model->getid();
+        return $this->execute($sql,$model);die;
+    }
     private function insert(Model $model){
         date_default_timezone_set("Brazil/East");
         $now = mktime (date('H'), date('i'), date('s'), date("m")  , date("d"), date("Y"));
@@ -71,7 +75,20 @@ class DaoRel extends dao{
         return $this->execute($sql, $model);
     }
     private function update(Model $model){
-        $model->setmodificado(new DateTime(), new DateTimeZone('America/Sao_Paulo'));
+        date_default_timezone_set("Brazil/East");
+        $now = mktime (date('H'), date('i'), date('s'), date("m")  , date("d"), date("Y"));
+        $model->setmodificado($now);
+        $model->setexcluido(0);
+        $arr = array_filter((array) $model);
+        $valores = str_replace('Model','',array_keys($arr));
+        foreach($valores as $valor){
+            if(in_array(trim($valor),$this->variaveis)){
+                $lista[]=$valor;
+            }
+        }
+        if($lista){
+            $this->variaveis = $lista;
+        }
         $sql = 'UPDATE `'.$model->gettabela().'` SET ';
         for($x=0;$x<count($this->variaveis);$x++){
             if($x < count($this->variaveis)-1){
@@ -86,7 +103,7 @@ class DaoRel extends dao{
     public function execute($sql,$model){
         $statement = $this->getDb()->prepare($sql);
         $this->executeStatement($statement, $this->getParams($model));
-        $search=new RelBusca();
+        //$search=new RelBusca();
         if (!$model->getid()) {
              //return $this->encontrePorId($search->setid($this->getDb()->lastInsertId()));
         }
@@ -96,10 +113,15 @@ class DaoRel extends dao{
         $params = array();
         foreach($this->variaveis as $item){
             $a=":$item";
-            $classe='get'.$item;
+            $classe='get'.trim($item);
             $params[$a]=$model->$classe();
         }
-        //$params = array(':id'=> $model->getid(),':mes'=> $model->getmes(),':dt'=> $model->getdt(),':descricao'=> $model->getdescricao(),':entrada'=> $model->getentrada(),':saida'=> $model->getsaida(),':comprovante'=> $model->getcomprovante(),':diz_ofe'=> $model->getdiz_ofe(),':criado'=> $model->getcriado(),':modificado'=> $model->getmodificado(),':excluido'=> $model->getexcluido(),);
+        $params = array(':id'=> $model->getid(),/*':mes'=> $model->getmes(),':dt'=> $model->getdt(),':descricao'=> $model->getdescricao(),':entrada'=> $model->getentrada(),':saida'=> $model->getsaida(),*/':comprovante'=> '"'.$model->getcomprovante().'"',/*':diz_ofe'=> $model->getdiz_ofe(),':criado'=> $model->getcriado(),*/':modificado'=> $model->getmodificado(),':excluido'=> $model->getexcluido(),);
         return $params;
     }
+    /*protected function executeStatement(PDOStatement $statement, array $params){
+        if (!$statement->execute($params)){
+            self::throwDbError($this->getDb()->errorInfo());
+        }
+    } */       
 }

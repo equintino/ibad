@@ -98,7 +98,19 @@
             date_default_timezone_set("Brazil/East");
             $now = mktime (date('H'), date('i'), date('s'), date("m")  , date("d"), date("Y"));
             $model->setmodificado($now);
+            
+            $arr=(array) $model;
+            $lista = array();
+            foreach(array_filter($arr) as $key => $item){
+                $campo = trim(str_replace('Model','',$key));
+                if(in_array($campo,$this->variaveis)){
+                    array_push($lista,$campo);
+                }
+            }
             $sql = 'UPDATE `'.$model->gettabela().'` SET ';
+            if($lista){
+                $this->variaveis=$lista;
+            }
             for($x=0;$x<count($this->variaveis);$x++){
                 if($x < count($this->variaveis)-1){
                     $sql .= $this->variaveis[$x].'=:'.$this->variaveis[$x].',';
@@ -106,6 +118,7 @@
                     $sql .= $this->variaveis[$x].'=:'.$this->variaveis[$x].' ';
                 }
             }
+            
             $sql .= 'WHERE id = :id ';
             return $this->execute($sql, $model);
         }
@@ -113,7 +126,7 @@
             $params = array();
             foreach($this->variaveis as $item){
                 $a=":$item";
-                $classe='get'.$item;
+                $classe='get'.trim($item);
                 $params[$a]=$model->$classe();
             }
             return $params;
