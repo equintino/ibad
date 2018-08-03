@@ -22,7 +22,7 @@
             $banco=preg_replace('/dbname=/','',explode(';',Config::getConfig($db)['dsn'])[1]);
             system('mysqldump -h localhost -u root -B '.$banco.' > "../db/'.$banco.'_'.$data.'.sql"');
         }
-        public function encontre(ModelSearchCriteria $search = null){ 
+        public function encontre(ModelSearchCriteria $search = null){
             set_time_limit(3600);
             ini_set('memory_limit', '-1');
             $result = array();

@@ -15,6 +15,8 @@ class BuscaOrdenada extends dao{
     private function getEncontreSql(ModelSearchCriteria $search = null){
         if($search->getorder()){
             $sql = "SELECT * FROM `".$search->gettabela()."` WHERE excluido = '0' ORDER BY ".$search->getorder();
+        }elseif($search->getId()){
+            $sql = "SELECT * FROM `".$search->gettabela()."` WHERE excluido = '0' AND id=".$search->getId();
         }else{
             $sql = "SELECT * FROM `".$search->gettabela()."` WHERE excluido = '0' ";
         }

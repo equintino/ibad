@@ -206,8 +206,11 @@
                        echo '</table>';
       echo '</fieldset>';
       
-         elseif($act=='cad'): 
-            @$search->setid($_GET['id']);
+         elseif($act=='cad'):
+            if(array_key_exists("id", $_GET)){
+                $search->setId($_GET['id']);
+                $search->setorder(null);
+            }
             $dados_=$dao->encontre($search);
             $dados=$dados_[array_keys($dados_)[0]];
             //$dados= get_class_vars($dados);
