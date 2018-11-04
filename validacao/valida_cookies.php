@@ -3,11 +3,11 @@
     </head>
     <body bgcolor=#4cb1f1>
 <?php
-    $userdao='../dao/UserDao.php';
-    $userserachcriteria='../dao/UserSearchCriteria.php';
-    $config='../config/Config.php';
-    $user='../model/User.php';
-    $mapping='../mapping/UserMapper.php';
+    $userdao='dao/UserDao.php';
+    $userserachcriteria='dao/UserSearchCriteria.php';
+    $config='config/Config.php';
+    $user='model/User.php';
+    $mapping='mapping/UserMapper.php';
     $diretorios=array($userdao,$userserachcriteria,$config,$user,$mapping);
     foreach($diretorios as $diretorio){
         if(!file_exists($diretorio)){
@@ -130,7 +130,7 @@ class valida_cookies{
                 echo '<br>';
                 echo "<center><input type=button value='  Cancelar  ' onclick=history.back()>";
             }else{
-                echo "<center><input autofocus type=button value=\"Entrar\" onclick=\"location.href='../web/index.php?index=sim'\">";
+                echo "<center><input autofocus type=button value=\"Entrar\" onclick=\"location.href='web/index.php?index=sim'\">";
             }
         echo "</td></tr></table>";
         echo "</td></tr>";

@@ -191,7 +191,7 @@
          <?php elseif($act=='rel'): 
              $somaEntrada=0;
              $somaSaida=0;
-             $mesAnterior=ModelValidador::nomeMes($_GET['mes']-1);
+             $mesAnterior=ModelValidador::nomeMes(strstr($_GET['mes'],'/',true)-1);
              if($_GET['mes']==1){
                 $mesAnterior='dezembro';
                 $ano=$ano-1;
