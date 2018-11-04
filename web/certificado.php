@@ -12,9 +12,9 @@
     .membro{
         position: absolute;
         top: 199px;
-        left: 235px;
+        left: 210px;
         font-size: 50px;
-        width: 580px;
+        width: 630px;
         text-align: center;
         font-family: 'Alex Brush';
         font-weight: 900;
@@ -71,17 +71,18 @@
         $('.certificadoVerso img').mouseover(function(){
             $(this).attr('title','Clique para virar.');
             $(this).css({
-                cursor: 'pointer'                
-            })
+                cursor: 'pointer',
+            });
             $(this).click(function(){
                 $(location).attr('href','../web/certificado.php?&id='+id+'&act=cert');
-            })
-        })
+            });
+        });
+        $('.certificadoVerso img').css('opacity','0.8');
         $('#btnPrint').css({
             position:'absolute',
             top: '670px',
             zIndex: '1'
-        })
+        });
         $("#btnPrint").click(function(){
             print();
         });
@@ -119,7 +120,6 @@
     $nomes=explode(' ',$nome);
     $membro=strtolower($nomes[0]);
     $esp="&nbsp&nbsp&nbsp&nbsp";
-    
     echo '<script>var batizado="'.$membro.'";
                   var id="'.$id.'"; 
                   var nome="'.$nome.'";

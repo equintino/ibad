@@ -56,7 +56,7 @@
     if(!$tabela){
         $model->settabela($ano);
     }
-    if(isset($_FILES)){
+    if(isset($_FILES) && !isset($_FILES['foto'])){
         $target_dir = "../web/documentos/comprovantes/";
         if(isset($_FILES['comprovante']['name'])){
            $target_file = $target_dir.$_POST['dia'].  ModelValidador::numeroMes($_POST['mes']).$_POST['ano'].'_'.basename($_FILES['comprovante']['name']);
